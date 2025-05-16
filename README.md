@@ -1,4 +1,6 @@
-# streamlit-yfiles-graph-component
+<p align="center">
+    <img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/yfiles-graphs-for-streamlit.svg" alt='yFiles Graphs for Streamlit logo'  width="400px" style='max-width: 400px'>
+</p>
 
 **Streamlit component for displaying and interacting with graph data using [yFiles](https://www.yworks.com/products/yfiles).**
 This component lets you display and interact with graph data directly in your Streamlit apps. It supports full customization of nodes, edges, layout, and behavior, making it useful for a variety of graph-based use cases.
