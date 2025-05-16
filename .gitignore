@@ -1,0 +1,9 @@
+.idea/.name
+.idea/workspace.xml
+**/node_modules/
+**/dist
+
+package-lock.json
+license.json
+/frontend/lib/
+/yfiles_graphs_for_streamlit.egg-info/
