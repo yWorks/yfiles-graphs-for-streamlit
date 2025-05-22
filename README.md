@@ -2,15 +2,15 @@
     <img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/yfiles-graphs-for-streamlit.svg" alt='yFiles Graphs for Streamlit logo'  width="400px" style='max-width: 400px'>
 </p>
 
-**Streamlit component for displaying and interacting with graph data using [yFiles](https://www.yworks.com/products/yfiles).**
-This component lets you display and interact with graph data directly in your Streamlit apps. It supports full customization of nodes, edges, layout, and behavior, making it useful for a variety of graph-based use cases.
+**Streamlit component for displaying and interacting with graph data powered by [yFiles for HTML](https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html?utm_campaign=yfiles4streamlit&utm_source=github&utm_medium=readme).**  
+This component enables you to display and interact with graph data directly within your Streamlit apps. It supports full customization of nodes, edges and automatic layouts—making it suitable for a variety of graph-based use cases.
 
 ---
 
 ## Installation
 
 ```bash
-pip install streamlit-yfiles-graph-component
+pip install yiles-graphs-for-streamlit
 ````
 
 ## Component Parameters
@@ -114,11 +114,11 @@ graph_layout='radial'
 
 <table>
     <tr>
-        <td><a href="https://github.com/yWorks/yfiles-jupyter-graphs-for-streamlit/blob/main/examples/mapping-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-jupyter-graphs-for-streamlit/refs/heads/main/images/mapping.png" title="Mapping visualization" alt="Mapping visualization"></a>
-        <td><a href="https://github.com/yWorks/yfiles-jupyter-graphs-for-streamlit/blob/main/examples/streamlit-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-jupyter-graphs-for-streamlit/refs/heads/main/images/introduction.png" title="Heat visualization" alt="Heat data visualization"></a>
+        <td><a href="https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/mapping-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/refs/heads/main/images/mapping.png" title="Mapping visualization" alt="Mapping visualization"></a>
+        <td><a href="https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/streamlit-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/refs/heads/main/images/introduction.png" title="Heat visualization" alt="Heat data visualization"></a>
     </tr>
     <tr>
-        <td><a href="https://github.com/yWorks/yfiles-jupyter-graphs-for-streamlit/blob/main/examples/little-alchemy-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-jupyter-graphs-for-streamlit/refs/heads/main/images/little-alchemy.png" title="Interactive item visualization" alt="Interactive item visualization"></a>
-        <td><a href="https://github.com/yWorks/yfiles-jupyter-graphs-for-streamlit/blob/main/examples/geodata-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-jupyter-graphs-for-streamlit/refs/heads/main/images/map.png" title="Geodata visualization" alt="-Geodata visualization"></a>
+        <td><a href="https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/little-alchemy-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/refs/heads/main/images/little-alchemy.png" title="Interactive item visualization" alt="Interactive item visualization"></a>
+        <td><a href="https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/geodata-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/refs/heads/main/images/map.png" title="Geodata visualization" alt="-Geodata visualization"></a>
     </tr>
 </table>
