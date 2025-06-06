@@ -1,5 +1,5 @@
 import streamlit as st
-from yfiles_graphs_for_streamlit import GraphComponent
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget
 
 
 airports = [
@@ -35,7 +35,7 @@ connections = [
     {'from': 'BOG','to': 'MEX' },    {'from': 'BOG','to': 'GRU' },    {'from': 'ATL','to': 'MIA' },    {'from': 'FRA','to': 'IST' },    {'from': 'IST','to': 'DEL' },    {'from': 'PVG','to': 'BKK' },    {'from': 'DEL','to': 'BKK' },
   ]
 
-component = GraphComponent()
+component = StreamlitGraphWidget()
 component.edges = edges = [
     {"start": connection['from'], "end": connection['to'], "label": "", "properties": {}, "directed": False}
     for connection in connections
