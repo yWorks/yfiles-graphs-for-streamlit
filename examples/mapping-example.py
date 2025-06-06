@@ -1,11 +1,11 @@
 import streamlit as st
-from yfiles_graphs_for_streamlit import GraphComponent
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget
 from networkx import erdos_renyi_graph
 
 g = erdos_renyi_graph(10, 0.3, 2)
 directed = True
 
-component = GraphComponent()
+component = StreamlitGraphWidget()
 component.import_graph(g)
 component.set_node_color_mapping(lambda node: '#e1c4ff')
 component.set_node_size_mapping(lambda index, node: (55 + 10 * (index % 5), 55 - 10 * (index % 5)))

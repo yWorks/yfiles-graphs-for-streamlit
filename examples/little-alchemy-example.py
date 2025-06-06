@@ -1,5 +1,5 @@
 import streamlit as st
-from yfiles_graphs_for_streamlit import GraphComponent
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget
 
 #Load little alchemy data
 import urllib.request, json
@@ -18,12 +18,12 @@ parentSet = set()
 element_id = None
 
 
-def custom_images(index, node):
+def custom_images(node):
     return {'image': "https://littlealchemy2.com/static/icons/" + node['id'] + ".svg"}
 
 
-def custom_size(index, node):
-    if 'prime' in data[str(index + 1)]:
+def custom_size(node):
+    if 'prime' in data[str(node['id'])]:
         return 80, 80
     return 55, 55
 
@@ -63,15 +63,7 @@ def update(element):
 
     return nodes, edges
 
-
-for source in parentSet:
-    if not source == element_id:
-        nodes2.append({"id": source, 'properties': {'label': data[source]['n']}})
-    edges2.append({"start": source, "end": element_id,
-                   "properties": {'label': '+ ' + str(getCombinations(source, element_id))[1:-1].replace("\'", "")}})
-
 directed = True
-
 
 st.set_page_config(page_title="Graph Viewer", layout="wide")
 # Place text input in a narrow column
@@ -83,7 +75,7 @@ with col1:
     node_size = st.slider("Change the node size:", 0.05, 5.0, 1.0)
 nodes, edges = update(element_name)
 
-component = GraphComponent()
+component = StreamlitGraphWidget()
 component.set_node_styles_mapping(custom_images)
 component.set_node_size_mapping(custom_size)
 component.set_edge_color_mapping(lambda : 'gray' if edge_color == '' else edge_color)

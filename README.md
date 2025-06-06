@@ -28,6 +28,10 @@ pip install yiles-graphs-for-streamlit
 | `key`          | `str`  | Optional unique key for multiple component instances   | `None`                                      |
 
 
+The Widget is updating selected nodes and edges, such that they can be used in your python script.
+They're accessible through `widget.selected_nodes` and `widget.selected_edges`, where widget is just a placeholder for your
+created component name.
+
 ## Dynamic Property Mappings
 
 Properties can be customized per node/edge in two ways:
@@ -37,10 +41,13 @@ Properties can be customized per node/edge in two ways:
 changeable node arguments:
 - `label`
 - `color`
-- `heat` 
+    - The default is `#15afac`
+- `heat`
 - `size`
+    - The default is `55,55`
 - `type`
 - `scale_factor`
+    - The default is `1`
 - `properties`
 - `styles`
 - `position`
@@ -50,36 +57,33 @@ changeable node arguments:
 - `parent`
 - `heat` (edges and nodes share a heat mapping)
 
-changeable edge arguments: 
+changeable edge arguments:
 
 - `label`
 - `color`
+    - The default is `#15afac`
 - `heat` (edges and nodes share a heat mapping)
 - `thickness_factor`
+    - The default is `1`
 - `properties`
 - `directed`
+    - The default is the given argument when instantiating the Streamlit Widget
 - `styles`
 
 
-### 1. Change node and edge
+Nodes and edges can be modified. E.g. color, size etc.
+Node: Each node should have the keys id: int and properties: typing.Dict.
 
-Nodes and edges can be modified. E.g. color, size etc. 
-To do so, change the respective field of a node/edge.
-Every node is structured like this:
+    {'id': ..., 'properties': {'label': ..., ...}}
 
+Edge: Each edge has the keys id: int, start: int, end: int and properties: typing.Dict.
 
-    {'id': ..., 'properties': {'label': ..., ...}, 'color': ..., 'size': (55,55)}
-    
+    {id: int, start: int, end: int and properties: typing.Dict.}
 
-Every edge is structured like this:
-    
-
-    {'id': ..., 'start': ..., 'end': ..., 'properties': {'label': ..., ...} , 'color': ...}
-
-### 2. Change node and edges through mapping functions:
+### Change node and edges through mapping functions:
 
 To dynamically modify edge properties, use `set_edge_[property]_mapping(...)`.  
-
+All mappings are described in detail down below.
 
 For node properties, use `set_node_[property]_mapping(...)`.
 
@@ -87,22 +91,15 @@ To control the heat values specifically, use `set_heat_mapping(...)`.
 
 Each mapping function receives a node or edge as input and should return the appropriate value for that property.
 
-For more detailed documentation on available mappings and their behavior, see the [yFiles Jupyter Graphs documentation](https://yworks.github.io/yfiles-jupyter-graphs/).
-
 
 ## Basic Example
 
 ```python
 
 import streamlit as st
-from Graph_Component import GraphComponent
+from Graph_Component import StreamlitGraphWidget
 
-# Example input data
-nodes = [{'id': 'A', 'properties': {'label': 'Node A'}, 'color': 'red', 'size': (50, 50)}]
-edges = [{'id': 'e1', 'start': 'A', 'end': 'B', 'properties': {'label': 'connects A to B'}}]
-
-# Render the graph component
-value = GraphComponent(
+value = StreamlitGraphWidget(
 nodes=nodes,
 edges=edges,
 directed=True,
@@ -122,3 +119,61 @@ graph_layout='radial'
         <td><a href="https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/geodata-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/refs/heads/main/images/map.png" title="Geodata visualization" alt="-Geodata visualization"></a>
     </tr>
 </table>
+
+
+## Mappings
+
+#### Label Mappings
+- `set_node_label_mapping(mapping: Callable[[node], str | Dict]) -> None`
+- `set_edge_label_mapping(mapping: Callable[[edge], str | Dict]) -> None`
+
+#### Property Mappings
+- `set_node_property_mapping(mapping: Callable[[node], Dict]) -> None`
+- `set_edge_property_mapping(mapping: Callable[[edge], Dict]) -> None`
+
+#### Color Mappings
+For the color mappings, all CSS color values are accepted:
+- `set_node_color_mapping(mapping: Callable[[node], str]) -> None`
+- `set_edge_color_mapping(mapping: Callable[[edge], str]) -> None`
+
+#### Styles Mappings
+- `set_node_styles_mapping(mapping: Callable[[node], Dict]) -> None`
+    - Possible node stylings:
+        - `color`: CSS color value
+        - `image`: URL or data URL of the image
+        - `shape`: One of `'ellipse'`, `'hexagon'`, `'hexagon2'`, `'octagon'`, `'pill'`, `'rectangle'`, `'round-rectangle'`, `'triangle'`
+- `set_edge_styles_mapping(mapping: Callable[[edge], Dict]) -> None`
+    - Possible edge stylings:
+        - `color`: CSS color value
+        - `directed`: `Bool`
+        - `thickness`: `float`
+        - `dashStyle`: `"solid"`, `"dash"`, `"dot"`, `"dash-dot"`, `"dash-dot-dot"`, `"5 10"` or `"5, 10"`
+
+#### Geometry/Appearance Mappings
+- `set_node_scale_factor_mapping(mapping: Callable[[node], float]) -> None`
+- `set_node_size_mapping(mapping: Callable[[node], Tuple[float, float]]) -> None`
+    - Returns: `(width, height)`
+- `set_node_layout_mapping(mapping: Callable[[node], Tuple[float, float, float, float]]) -> None`
+    - Returns: `(x, y, width, height)`
+- `set_node_position_mapping(mapping: Callable[[node], Tuple[float, float]]) -> None`
+    - Returns: `(x, y)`
+- `set_node_coordinate_mapping(mapping: Callable[[node], Tuple[float, float]]) -> None`
+    - Returns: `(latitude, longitude)`
+
+#### Hierarchy/Structure Mappings
+- `set_node_type_mapping(mapping: Callable[[node], str]) -> None`
+- `set_node_parent_mapping(mapping: Callable[[node], str | int | float]) -> None`
+    - Uses existing IDs to convert nodes into group nodes. Does not create new nodes.
+- `set_node_parent_group_mapping(mapping: Callable[[node], str | int | float]) -> None`
+    - Creates new group nodes from returned group identifiers.
+
+#### Edge-Specific Mappings
+- `set_edge_thickness_factor_mapping(mapping: Callable[[edge], float]) -> None`
+- `set_directed_mapping(mapping: Callable[[edge], bool]) -> None`
+
+#### Utility/Visual Analytics
+- `set_heat_mapping(mapping: Callable[[element], float]) -> None`
+    - Returns a value between `0` and `1`
+
+
+

@@ -1,5 +1,5 @@
 import streamlit as st
-from yfiles_graphs_for_streamlit import GraphComponent
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget
 
 nodes = [
     {"id": 0, "properties": {"firstName": "Alpha", "label": "Person A"}, "size": (110,110), "color": '#AC94F4', 'coordinates': [48.522, 9.0522]},
@@ -25,5 +25,5 @@ st.markdown("---")
 
 #container = st.container()
 st.title("Introduction")
-one = GraphComponent(nodes, edges, directed)
+one = StreamlitGraphWidget(nodes, edges, directed)
 st.markdown("---")
