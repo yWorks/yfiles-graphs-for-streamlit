@@ -221,6 +221,7 @@ See [issues](https://github.com/yWorks/yfiles-graphs-for-streamlit/issues).
 - [yFiles for HTML](https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html)
 - [@ctrl/tinycolor](https://github.com/scttcper/tinycolor)
 - [@mdi/js](https://github.com/Templarian/MaterialDesign-JS)
+- [leaflet](https://www.npmjs.com/package/leaflet)
 - [streamlit](https://streamlit.io/)
 - [Vue](https://vuejs.org/)
 - [vue-json-viewer](https://github.com/chenfengjw163/vue-json-viewer)
