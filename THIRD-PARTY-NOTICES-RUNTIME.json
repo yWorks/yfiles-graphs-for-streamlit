@@ -1,0 +1,43 @@
+{
+  "@ctrl/tinycolor@3.6.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/scttcper/tinycolor",
+    "publisher": "Scott Cooper",
+    "email": "scttcper@gmail.com",
+    "path": "node_modules/@ctrl/tinycolor",
+    "licenseFile": "node_modules/@ctrl/tinycolor/LICENSE"
+  },
+  "@mdi/js@6.9.96": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/Templarian/MaterialDesign-JS",
+    "publisher": "Austin Andrews",
+    "path": "node_modules/@mdi/js",
+    "licenseFile": "node_modules/@mdi/js/LICENSE"
+  },
+  "leaflet@1.9.4": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/Leaflet/Leaflet",
+    "path": "node_modules/leaflet",
+    "licenseFile": "node_modules/leaflet/LICENSE"
+  },
+  "vue-json-viewer@3.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/chenfengjw163/vue-json-viewer",
+    "publisher": "陈峰",
+    "email": "chenfengjw@hotmail.com",
+    "path": "node_modules/vue-json-viewer",
+    "licenseFile": "node_modules/vue-json-viewer/LICENSE"
+  },
+  "vue@3.5.20": {
+    "licenses": "MIT",
+    "repository": "https://github.com/vuejs/core",
+    "publisher": "Evan You",
+    "path": "node_modules/vue",
+    "licenseFile": "node_modules/vue/LICENSE"
+  },
+  "matomo-js@5.4.0": {
+    "licenses": "BSD-3-Clause",
+    "repository": "https://github.com/matomo-org/matomo/tree/5.4.0/js",
+    "licenseUrl": "https://github.com/matomo-org/matomo/blob/5.4.0/js/LICENSE.txt"
+  }
+}

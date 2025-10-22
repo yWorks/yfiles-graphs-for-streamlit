@@ -217,10 +217,15 @@ Please also provide a clear and descriptive title and stick to the issue templat
 See [issues](https://github.com/yWorks/yfiles-graphs-for-streamlit/issues).
 
 ## Dependencies
+These dependencies are bundled with the component (see also [THIRD-PARTY-NOTICES.json](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/THIRD-PARTY-NOTICES.json)).
+- [streamlit](https://streamlit.io/)
+
+## Runtime Dependencies
+Additionally, the following dependencies are used during the runtime of the component (see also [THIRD-PARTY-NOTICES-RUNTIME.json](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/THIRD-PARTY-NOTICES-RUNTIME.json)).
 - [yFiles for HTML](https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html)
 - [@ctrl/tinycolor](https://github.com/scttcper/tinycolor)
 - [@mdi/js](https://github.com/Templarian/MaterialDesign-JS)
-- [streamlit](https://streamlit.io/)
+- [Matomo JS](https://github.com/matomo-org/matomo/tree/5.4.0/js)
 - [Vue](https://vuejs.org/)
 - [vue-json-viewer](https://github.com/chenfengjw163/vue-json-viewer)
 

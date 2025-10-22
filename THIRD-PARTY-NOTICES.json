@@ -1,0 +1,9 @@
+{
+    "streamlit-component-lib@2.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/streamlit/streamlit",
+        "publisher": "Streamlit",
+        "path": "node_modules\\streamlit-component-lib",
+        "licenseFile": "node_modules\\streamlit-component-lib\\README.md"
+    }
+}
