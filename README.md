@@ -186,9 +186,10 @@ Specify which nodes should be grouped together.
 * `set_node_parent_mapping(mapping: Callable[[node], str | int | float]) -> None`
   * This mapping does not create new group nodes and just resolves the mapped id against the given dataset.
     It should be used when the group nodes are already **part of** the given dataset.
-* `set_node_parent_group_mapping(mapping: Callable[[node], str | int | float]) -> None`
-  * This mapping always creates new dicts based on the given mapping.
+* `set_node_parent_group_mapping(mapping: Callable[[node], str | int | float | Dict]) -> None`
+  * This mapping always creates new node objects based on the given mapping.
     It should be used when the group nodes are **not part of** the given dataset.
+    When returning a dict, it is required to have a "label" property that is used as text. Any other property is added to its "properties" which are considered when executing other mappings.
 
 ### Automatic Layout Mappings
 Some mappings affect specific automatic layouts
