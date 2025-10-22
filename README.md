@@ -19,7 +19,7 @@ pip install yfiles_graphs_for_streamlit
 
 ## Usage
 
-See also [basic-example.py](./examples/basic-example.py).
+See also [basic-example.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/basic-example.py).
 
 ```python
 
@@ -44,7 +44,7 @@ StreamlitGraphWidget(nodes, edges).show()
 
 ## Examples
 
-You can find more examples in [./examples](./examples).
+You can find more examples in [/examples](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples).
 
 ## Providing Data
 
@@ -57,7 +57,7 @@ The nodes / edges lists are required to be lists of `dict`s. There are only few 
 
 Optionally, provide additional properties in a `properties` property.
 
-For example, see [basic-example.py](./examples/basic-example.py).
+For example, see [basic-example.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/basic-example.py).
 
 To map custom properties to visual features, see [Data-driven visualization mappings](#data-driven-visualization-mappings).
 
@@ -107,7 +107,7 @@ Call `show()` to render the component in a streamlit file. There are optional ar
 | `key`            | `str`  | Streamlit's optional unique key for multiple component instances.                                                                                                                                                                                                | `None`                                      |
 
 The return value of `show()` is a reference to the interactively selected node- or edge-dicts iff `sync_selection` is set to `True`. 
-For example, see [selection.py](./examples/selection.py).
+For example, see [selection.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/selection.py).
 
 ## Data-driven Visualization Mappings
 
