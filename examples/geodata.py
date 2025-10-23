@@ -1,12 +1,12 @@
 import streamlit as st
-from yfiles_graphs_for_streamlit import StreamlitGraphWidget
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget, Layout, NodeStyle, EdgeStyle, DashStyle
 
 st.set_page_config(
     page_title="yFiles Graphs for Streamlit",
     layout="wide",
 )
 st.markdown("---")
-st.title("Geodata")
+st.title("Geodata Visualization")
 
 # some example data with geo-coordinates
 airports_json = [
@@ -63,12 +63,15 @@ graph = StreamlitGraphWidget(airports, flight_paths)
 graph.node_coordinate_mapping = "coordinates"
 
 # use icons for node visualization
-graph.node_styles_mapping = lambda node: {"image": "https://cdn-icons-png.flaticon.com/512/252/252025.png"}
+graph.node_styles_mapping = lambda node: NodeStyle(image="https://cdn-icons-png.flaticon.com/512/252/252025.png")
 
 # adjust edge visualization
-graph.edge_styles_mapping = lambda edge: {"dashStyle": "dash", "color": "black"}
+graph.edge_styles_mapping = lambda edge: EdgeStyle(
+    dash_style=DashStyle.DASH,
+    color="black"
+)
 
 # render the component directly in the map layout view
-graph.show(graph_layout="map")
+graph.show(graph_layout=Layout.MAP)
 
 st.markdown("---")

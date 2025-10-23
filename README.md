@@ -95,18 +95,18 @@ graph.show()
 
 Call `show()` to render the component in a streamlit file. There are optional arguments with which the embedding can be adjusted:
 
-| Argument         | Type   | Description                                                                                                                                                                                                                                                      | Default                                     |
-|------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
-| `directed`       | `bool` | Whether the edges should show a direction indicator.                                                                                                                                                                                                             | `True`                                      |
-| `graph_layout`   | `str`  | Can be used to specify a general default automatic layout. <br/>Available algorithms are: `'circular'`, `'hierarchic'`, `'organic'`, `'interactive_organic'`, `'orthogonal'`, `'radial'`, `'tree'`, `'map'`, `'orthogonal_edge_router'`, `'organic_edge_router'` | `'organic'`                                 |
-| `sync_selection` | `bool` | Whether the component returns the lists of interactively selected nodes and edges. Enabling this may require caching the component to avoid excessive rerendering.                                                                                                      | `False`                                     |
-| `sidebar`        | `dict` | Sidebar options: `{enabled, start_with}`. `start_with` may be one of `'Neighborhood'`, `'Data'`, `'Search'`, `'About'`                                                                                                                                           | `{'enabled': False}`                        |
-| `neighborhood`   | `dict` | `{max_distance, selected_nodes}` to filter neighbors.                                                                                                                                                                                                            | `{'max_distance': 1, 'selected_nodes': []}` |
-| `overview`       | `bool` | Whether the overview is expanded                                                                                                                                                                                                                                 | `True`                                      |
-| `highlight`      | `list` | Nodes/edges to highlight.                                                                                                                                                                                                                                        | `[]`                                        |
-| `key`            | `str`  | Streamlit's optional unique key for multiple component instances.                                                                                                                                                                                                | `None`                                      |
+| Argument         | Type     | Description                                                                                                                                                        | Default                                     |
+|------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| `directed`       | `bool`   | Whether the edges should show a direction indicator.                                                                                                               | `True`                                      |
+| `graph_layout`   | `Layout` | Can be used to specify a general default automatic layout. See [Layout](#layout).                                                                                  | `Layout.ORGANIC`                            |
+| `sync_selection` | `bool`   | Whether the component returns the lists of interactively selected nodes and edges. Enabling this may require caching the component to avoid excessive rerendering. | `False`                                     |
+| `sidebar`        | `dict`   | Sidebar options: `{enabled, start_with}`. `start_with` may be one of `'Neighborhood'`, `'Data'`, `'Search'`, `'About'`                                             | `{'enabled': False}`                        |
+| `neighborhood`   | `dict`   | `{max_distance, selected_nodes}` to filter neighbors.                                                                                                              | `{'max_distance': 1, 'selected_nodes': []}` |
+| `overview`       | `bool`   | Whether the overview is expanded                                                                                                                                   | `True`                                      |
+| `highlight`      | `list`   | Nodes/edges to highlight.                                                                                                                                          | `[]`                                        |
+| `key`            | `str`    | Streamlit's optional unique key for multiple component instances.                                                                                                  | `None`                                      |
 
-The return value of `show()` is a reference to the interactively selected node- or edge-dicts iff `sync_selection` is set to `True`. 
+The return value of `show()` is a tuple of node and edge lists that are interactively selected. The returned lists are only updated when `sync_selection` is set to `True`.
 For example, see [selection.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/selection.py).
 
 ## Data-driven Visualization Mappings
@@ -124,20 +124,22 @@ By default, the origin dict for each item is returned.
 
 ### Label Mappings
 Specify the visualized text on each item.
-* `set_node_label_mapping(mapping: Callable[[node], str | Dict]) -> None`
-* `set_edge_label_mapping(mapping: Callable[[edge], str | Dict]) -> None`
+* `set_node_label_mapping(mapping: Callable[[node], str | LabelStyle]) -> None`
+* `set_edge_label_mapping(mapping: Callable[[edge], str | LabelStyle]) -> None`
 
-Returning a string will first be resolved against the `properties` of the item's dict and if there is no such property key the value is used as-is. Alternatively, return a dict with the following properties to have full control over the item's text:
+Returning a string will first be resolved against the `properties` of the item's dict and if there is no such property key the value is used as-is. Alternatively, return a `LabelStyle` object with the following properties to have full control over the item's text:
 * `text: string`: The text that is added to the item.
-* `fontSize: number`: The text size.
-* `fontWeight: 'bold' | 'bolder' | 'lighter' | 'normal'`: The font thickness.
+* `font_size: int`: The text size.
+* `font_weight: FontWeight`: The font weight. See [FontWeight](#fontweight).
 * `color: string`: The text color.
-* `backgroundColor: string`: A color string that is used as the label's background.
-* `position: 'center' | 'north' | 'east' | 'south' | 'west'`: The label position at the node.
-* `maximumWidth: number`: The maximum width of the label. By default, the label is clipped at the given size, or wrapped when `wrapping` is set.
-* `maximumHeight: number`: The maximum height of the label. Clips the label at the given height. May be combined with `wrapping`.
-* `wrapping: 'character' | 'character_ellipsis' | 'none' | 'word' | 'word_ellipsis'`: Text wrapping for the label. Must be set in combination with `maximumWidth`.
-* `textAlignment: 'center' | 'left' | 'right'`: The horizontal text alignment when `wrapping` is enabled.
+* `background_color: string`: A color string that is used as the label's background.
+* `position: LabelPosition`: Where the label is placed relatively to the node. See [LabelPosition](#labelposition).
+* `maximum_width: int`: The maximum width of the label. By default, the label is clipped at the given size, or wrapped when `wrapping` is set.
+* `maximum_height: int`: The maximum height of the label. Clips the label at the given height. May be combined with `wrapping`.
+* `wrapping: TextWrapping`: Text wrapping for the label. Must be set in combination with `maximum_width`. See [TextWrapping](#textwrapping).
+* `text_alignment: TextAlignment`: The horizontal text alignment when `wrapping` is enabled. See [TextAlignment](#textalignment).
+
+For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/data-mapping.py).
 
 ### Color Mappings
 Specify the color of each item.
@@ -146,23 +148,27 @@ Specify the color of each item.
 
 Return any CSS color value (e.g. a color constant, a hex value, an rgb string, etc.).
 
+For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/data-mapping.py).
+
 ### Item Visualization Mappings
 Specify the visualization properties of nodes and edges.
-* `set_node_styles_mapping(mapping: Callable[[node], Dict]) -> None`
-  * Available node properties:
+* `set_node_styles_mapping(mapping: Callable[[node], NodeStyle]) -> None`
+  * Available node properties on `NodeStyle`:
     * `color`: CSS color value
     * `image`: URL or data URL of the image
-    * `shape`: One of `'ellipse'`, `'hexagon'`, `'hexagon2'`, `'octagon'`, `'pill'`, `'rectangle'`, `'round-rectangle'`, `'triangle'`
-* `set_edge_styles_mapping(mapping: Callable[[edge], Dict]) -> None`
-  * Available edge properties:
+    * `shape`: `NodeShape` enum, see [NodeShape](#nodeshape)
+* `set_edge_styles_mapping(mapping: Callable[[edge], EdgeStyle]) -> None`
+  * Available edge properties on `EdgeStyle`:
     * `color`: `str` (a CSS color value)
-    * `directed`: `Bool`
+    * `directed`: `bool`
     * `thickness`: `float`
-    * `dashStyle`: `'solid'`, `'dash'`, `'dot'`, `'dash-dot'`, `'dash-dot-dot'`, `'5 10'` or `'5, 10'`
+    * `dash_style`: `DashStyle` (see [DashStyle](#dashstyle)) or a dashing string like `'5 10'` or `'5, 10'`
 * `set_edge_thickness_factor_mapping(mapping: Callable[[edge], float]) -> None`
   * Controls the thickness of the edges with a factor that is multiplied to its base size.
 * `set_directed_mapping(mapping: Callable[[edge], bool]) -> None`
   * Allows specifying which edge should be visualized with direction (indicated by an arrow).
+
+For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/data-mapping.py).
 
 ### Geometry Mappings
 Specify the location and/or size of nodes. Note that the location of an item is overwritten from an automatic layout,
@@ -176,20 +182,25 @@ unless the `no_layout` option is used.
 * `set_node_layout_mapping(mapping: Callable[[node], Tuple[float, float, float, float]]) -> None`
   * Controls the bounding box of the nodes (position and size) by returning a 4-tuple: `(x, y, width, height)`.
 
+For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/data-mapping.py).
+
 ### Geospatial Mapping
 Specify a geo-coordinate for the nodes that is used by the geospatial layout option.
 * `set_node_coordinate_mapping(mapping: Callable[[node], Tuple[float, float]]) -> None`
   * The mapping is supposed to return a tuple of `(latitude, longitude)`.
+
+For example, see [geodata.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/geodata.py).
 
 ### Hierarchy Mappings
 Specify which nodes should be grouped together.
 * `set_node_parent_mapping(mapping: Callable[[node], str | int | float]) -> None`
   * This mapping does not create new group nodes and just resolves the mapped id against the given dataset.
     It should be used when the group nodes are already **part of** the given dataset.
-* `set_node_parent_group_mapping(mapping: Callable[[node], str | int | float | Dict]) -> None`
-  * This mapping always creates new node objects based on the given mapping.
+* `set_node_parent_group_mapping(mapping: Callable[[node], str | int | float]) -> None`
+  * This mapping always creates new dicts based on the given mapping.
     It should be used when the group nodes are **not part of** the given dataset.
-    When returning a dict, it is required to have a "label" property that is used as text. Any other property is added to its "properties" which are considered when executing other mappings.
+
+For example, see [grouping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/grouping.py).
 
 ### Automatic Layout Mappings
 Some mappings affect specific automatic layouts
@@ -202,6 +213,86 @@ Some mappings affect specific automatic layouts
 Numeric values on nodes and edges may be visualized as a heatmap overlay on the graph visualization.
 * `set_heat_mapping(mapping: Callable[[element], float]) -> None`
   * The returned heat needs to be normalized in-between `0` and `1`.
+
+For example, see [geodata.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/geodata.py).
+
+## Enums
+The enums can be imported from `yfiles_graphs_for_streamlit`.
+
+### `Layout`
+| Enum                            | Description                                                                                                |
+|---------------------------------|------------------------------------------------------------------------------------------------------------|
+| `Layout.CIRCULAR`               | Arranges nodes in singly cycle and bundles edge paths.                                                     |
+| `Layout.CIRCULAR_STRAIGHT_LINE` | Arranges nodes in singly cycle and uses straight-line edge paths.                                          |
+| `Layout.HIERARCHIC`             | Organizes nodes in hierarchical layers to emphasize directional flow.                                      |
+| `Layout.ORGANIC`                | Uses a force-directed algorithm to create a natural, free-form network layout.                             |
+| `Layout.INTERACTIVE_ORGANIC`    | Similar to `ORGANIC` but dynamically adjusts the layout as the user interacts with it.                     |
+| `Layout.ORTHOGONAL`             | Positions nodes on a grid with right-angled edges for clear, structured diagrams.                          |
+| `Layout.RADIAL`                 | Places a central node in the middle and arranges others in rings around it to show hierarchy or influence. |
+| `Layout.TREE`                   | Displays nodes in a branching tree structure from a defined root node.                                     |
+| `Layout.MAP`                    | Uses user-defined geo-coordinates to place the nodes on a world map                                        |
+| `Layout.ORTHOGONAL_EDGE_ROUTER` | Reroutes edges at right angles to minimize overlap and improve readability.                                |
+| `Layout.ORGANIC_EDGE_ROUTER`    | Smoothly routes edges around obstacles in a natural, curved manner.                                        |
+| `Layout.NO_LAYOUT`              | Leaves node positions unchanged without applying any automatic layout.                                     |
+
+### `NodeShape`
+| Enum                        | Description                                                                                                     |
+|-----------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `NodeShape.ELLIPSE`         | An elliptical shape.                                                                                            |
+| `NodeShape.HEXAGON`         | A 6-sided polygon where the top and bottom edges are aligned with the top and bottom edges of the bounding box. |
+| `NodeShape.HEXAGON2`        | A 6-sided polygon where the left and right edges are aligned with the left and right edges of the bounding box. |
+| `NodeShape.OCTAGON`         | An 8-sided polygon where the edges are aligned with the edges of the bounding box.                              |
+| `NodeShape.PILL`            | A stadium shape with the shorter sides rounded.                                                                 |
+| `NodeShape.RECTANGLE`       | A rectangular shape.                                                                                            |
+| `NodeShape.ROUND_RECTANGLE` | A rectangular shape with rounded corners.                                                                       |
+| `NodeShape.TRIANGLE`        | A triangular shape that points to the top.                                                                      |
+
+### `DashStyle`
+| Enum                        | Description                           |
+|-----------------------------|---------------------------------------|
+| `DashStyle.SOLID`           | Solid line style.                     |
+| `DashStyle.DASH`            | Dashed line style.                    |
+| `DashStyle.DOT`             | Dotted line style.                    |
+| `DashStyle.DASH_DOT`        | Single dash and dot line style        |
+| `DashStyle.DASH_DOT_DOT`    | A single dash and two dots line style |
+
+
+### `FontWeight`
+| Enum                 | Description |
+|----------------------|-------------|
+| `FontWeight.BOLD`    | 'bold'      |
+| `FontWeight.BOLDER`  | 'bolder'    |
+| `FontWeight.NORMAL`  | 'normal'    |
+| `FontWeight.LIGHTER` | 'lighter'   |
+
+### `TextAlignment`
+Only affects multiline texts.
+
+| Enum                   | Description                    |
+|------------------------|--------------------------------|
+| `TextAlignment.CENTER` | Center aligned multiline text. |
+| `TextAlignment.LEFT`   | Left aligned multiline text.   |
+| `TextAlignment.RIGHT`  | right aligned multiline text.  |
+
+### `TextWrapping`
+Is only in effect when `maximum_width` is specified on `LabelStyle`.
+
+| Enum                              | Description                                                              |
+|-----------------------------------|--------------------------------------------------------------------------|
+| `TextWrapping.CHARACTER`          | Character wrapping at `maximum_width`  .                                 |
+| `TextWrapping.CHARACTER_ELLIPSIS` | Character wrapping at `maximum_width` with ellipsis at `maximum_height`. |
+| `TextWrapping.WORD`               | Word wrapping at `maximum_width`.                                        |
+| `TextWrapping.WORD_ELLIPSIS`      | Word wrapping at `maximum_width` with ellipsis at `maximum_height`.      |
+| `TextWrapping.NONE`               | The text is not wrapped, nor clipped.                                    |
+
+### `LabelPosition`
+| Enum                   | Description                                                |
+|------------------------|------------------------------------------------------------|
+| `LabelPosition.CENTER` | Places the label in the center of the node (interior).     |
+| `LabelPosition.NORTH`  | Places the label above the node (exterior).                |
+| `LabelPosition.EAST`   | Places the label on the right side of the node (exterior). |
+| `LabelPosition.SOUTH`  | Places the label below the node (exterior).                |
+| `LabelPosition.WEST`   | Places the label on the left side of the node (exterior).  |
 
 ## Code of Conduct
 This project and everyone participating in it is governed by the [Code of Conduct](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/CODE_OF_CONDUCT.md).

@@ -1,9 +1,7 @@
 import streamlit as st
 import itertools
-from yfiles_graphs_for_streamlit import StreamlitGraphWidget
-
-# Load little alchemy data
 import urllib.request, json
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget, Layout, NodeStyle
 
 st.set_page_config(page_title="yFiles Graphs for Streamlit", layout="wide")
 
@@ -70,7 +68,7 @@ nodes, edges = create_graph_data(element_name or "butterfly")
 graph = StreamlitGraphWidget(nodes, edges)
 
 # use icons for node visualization
-graph.node_styles_mapping = lambda node: {"image": "https://littlealchemy2.com/static/icons/" + node["id"] + ".svg"}
+graph.node_styles_mapping = lambda node: NodeStyle(image="https://littlealchemy2.com/static/icons/" + node["id"] + ".svg")
 
 # "prime"-nodes should be bigger than other nodes
 def scale_primes(node):
@@ -87,4 +85,4 @@ graph.node_scale_factor_mapping = lambda: node_size
 
 with col2:
     # render the component with a hierarchic layout and collapsed overview overlay
-    graph.show(graph_layout="hierarchic", overview=False)
+    graph.show(graph_layout=Layout.HIERARCHIC, overview=False)

@@ -1,5 +1,5 @@
 import streamlit as st
-from yfiles_graphs_for_streamlit import StreamlitGraphWidget
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget, Layout, LabelStyle, FontWeight, EdgeStyle
 from networkx import florentine_families_graph
 
 st.set_page_config(
@@ -35,12 +35,19 @@ def is_in_medici_line(node_id: int) -> bool:
     return False
 
 # highlight edges between Medici marriage line nodes
-graph.edge_styles_mapping = lambda edge: {
-    "color": "#FF0000" if is_in_medici_line(edge["start"]) and is_in_medici_line(edge["end"]) else "#BDBDBD",
-    "thickness": 6 if is_in_medici_line(edge["start"]) and is_in_medici_line(edge["end"]) else 1
-}
+graph.edge_styles_mapping = lambda edge: EdgeStyle(
+    color="#FF0000" if is_in_medici_line(edge["start"]) and is_in_medici_line(edge["end"]) else "#BDBDBD",
+    thickness=6 if is_in_medici_line(edge["start"]) and is_in_medici_line(edge["end"]) else 1
+)
+
+# emphasize Medici marriage line node labels
+graph.node_label_mapping = lambda n: LabelStyle(
+    text=n["properties"]["label"],
+    font_weight=FontWeight.BOLD if n["properties"]["label"] in medici_line else FontWeight.NORMAL,
+    font_size=16 if n["properties"]["label"] in medici_line else 12
+)
 
 # render the component
-graph.show(graph_layout="hierarchic")
+graph.show(graph_layout=Layout.HIERARCHIC)
 
 st.markdown("---")
