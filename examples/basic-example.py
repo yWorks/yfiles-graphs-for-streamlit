@@ -1,6 +1,18 @@
 import streamlit as st
 from yfiles_graphs_for_streamlit import StreamlitGraphWidget
 
+st.set_page_config(
+    page_title="yFiles Graphs for Streamlit",
+    layout="wide"
+)
+
+st.markdown("---")
+st.title("Introduction")
+
+# Structured sample data.
+# - Each node dict must provide an id property
+# - Each edge dict must provide an id, start and end property that resolve to the node ids to form the graph structure.
+# - Optionally, provide additional properties in a "properties" property.
 nodes = [
     {"id": 0, "properties": {"firstName": "Alpha", "label": "Person A"}},
     {"id": 1, "properties": {"firstName": "Bravo", "label": "Person B"}},
@@ -14,13 +26,7 @@ edges = [
     {"id": 3, "start": 0, "end": 2, "properties": {"label": "knows", "since": 234}}
 ]
 
-st.set_page_config(
-    page_title="yFiles Graphs for Streamlit",
-    layout="wide"
-)
-
-st.markdown("---")
-
-st.title("Introduction")
+# initialize and render the component
 StreamlitGraphWidget(nodes, edges).show()
+
 st.markdown("---")

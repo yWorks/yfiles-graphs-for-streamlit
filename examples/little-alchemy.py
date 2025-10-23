@@ -1,4 +1,5 @@
 import streamlit as st
+import itertools
 from yfiles_graphs_for_streamlit import StreamlitGraphWidget
 
 # Load little alchemy data
@@ -6,35 +7,19 @@ import urllib.request, json
 
 st.set_page_config(page_title="yFiles Graphs for Streamlit", layout="wide")
 
+# load little-alchemy data from the web
 @st.cache_data
 def load_data():
     with urllib.request.urlopen("https://unpkg.com/little-alchemy-2@0.0.1/dist/alchemy.json") as url:
         return json.load(url)
-
 data = load_data()
 
-import itertools
-
-# we'll use a subset of the graph here
+# this example only uses a subset of the data
 num_elements = 50
 dataset = dict(itertools.islice(data.items(), num_elements))
 
-parentSet = set()
-element_id = None
-
-
-def custom_images(node):
-    return {'image': "https://littlealchemy2.com/static/icons/" + node['id'] + ".svg"}
-
-
-def custom_size(node):
-    if 'prime' in data[str(node['id'])]:
-        return 80, 80
-    return 55, 55
-
-
-# This function generates edge labels
-def getCombinations(id, target_id):
+def create_edge_label(id, target_id):
+    """Generate edge labels"""
     result = []
     item = data[target_id]
     for source1, source2 in item['p']:
@@ -44,12 +29,15 @@ def getCombinations(id, target_id):
             result.append(data[source1]['n'])
     return result
 
-def update(element):
-    nodes = []
-    edges = []
+parentSet = set()
+element_id = None
+def create_graph_data(element):
+    """Creates the node and edge dicts that are visualized as graph"""
+    result_nodes = []
+    result_edges = []
     for key, item in data.items():
         if item['n'] == element:
-            nodes.append({"id": key, 'properties': {'label': item['n']}})
+            result_nodes.append({"id": key, 'properties': {'label': item['n']}})
             element_id = key
             if 'p' in item:
                 for source1, source2 in item['p']:
@@ -58,35 +46,46 @@ def update(element):
             if 'c' in item:
                 for child in item['c']:
                     if child not in parentSet:
-                        nodes.append({"id": child, 'properties': {'label': data[child]['n']}})
-                        edges.append({"start": key, "end": child, "properties": {
-                            'label': '+ ' + str(getCombinations(element_id, child))[1:-1].replace("\'", "")}})
+                        result_nodes.append({"id": child, 'properties': {'label': data[child]['n']}})
+                        result_edges.append({"start": key, "end": child, "properties": {
+                            'label': '+ ' + str(create_edge_label(element_id, child))[1:-1].replace("\'", "")}})
                     else:
-                        edges.append({"start": key, "end": child, "properties": {
-                            'label': '+ ' + str(getCombinations(element_id, child))[1:-1].replace("\'", "")}})
+                        result_edges.append({"start": key, "end": child, "properties": {
+                            'label': '+ ' + str(create_edge_label(element_id, child))[1:-1].replace("\'", "")}})
 
-    return nodes, edges
+    return result_nodes, result_edges
 
 # Place text input in a narrow column
 col1, col2 = st.columns([1, 3])  # 1: narrow, 3: wide
 
+# create input elements
 with col1:
     element_name = st.text_input('Enter an element name:', placeholder='e.g. cat')
     edge_color = st.text_input('Enter an edge color:', placeholder='e.g. blue or #0000FF')
     node_size = st.slider("Change the node size:", 0.05, 5.0, 1.0)
 
-if element_name == '':
-    element_name = 'butterfly'
-nodes, edges = update(element_name)
+# create the structured data based on the given element
+nodes, edges = create_graph_data(element_name or 'butterfly')
 
+# pass node and edge dicts
 graph = StreamlitGraphWidget(nodes, edges)
-graph.set_node_styles_mapping(custom_images)
+
+# use icons for node visualization
+graph.set_node_styles_mapping(lambda node: {'image': "https://littlealchemy2.com/static/icons/" + node['id'] + ".svg"})
+
+# "prime"-nodes should be bigger than other nodes
+def custom_size(node):
+    if 'prime' in data[str(node['id'])]:
+        return 80, 80
+    return 55, 55
 graph.set_node_size_mapping(custom_size)
-graph.set_edge_color_mapping(lambda: 'gray' if edge_color == '' else edge_color)
+
+# color edges
+graph.set_edge_color_mapping(lambda edge: 'gray' if edge_color == '' else edge_color)
+
+# pass the slider's size value as scale mapping
 graph.set_node_scale_factor_mapping(lambda: node_size)
 
 with col2:
-    graph.show(
-        graph_layout='hierarchic',
-        overview=False,
-    )
+    # render the component with a hierarchic layout and collapsed overview overlay
+    graph.show(graph_layout='hierarchic', overview=False)

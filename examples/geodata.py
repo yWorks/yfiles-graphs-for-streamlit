@@ -5,7 +5,10 @@ st.set_page_config(
     page_title="yFiles Graphs for Streamlit",
     layout="wide",
 )
+st.markdown("---")
+st.title("Geodata")
 
+# some example data with geo-coordinates
 airports_json = [
     {"name": "Los Angeles", "iata": "LAX", "lat": 33.942536, "lng": -118.408075, "passengers": 65000000, "country": "USA", "id": "LAX"}, {"name": "Rio de Janeiro", "iata": "GIG", "lat": -22.808903, "lng": -43.243647, "passengers": 5000000, "country": "Brazil", "id": "GIG"}, {"name": "Lima", "iata": "LIM", "lat": -12.021889, "lng": -77.114319, "passengers": 18000000, "country": "Peru", "id": "LIM"}, {"name": "London", "iata": "LHR", "lat": 51.4775, "lng": -0.461389, "passengers": 61000000, "country": "UK", "id": "LHR"},
     {"name": "Frankfurt", "iata": "FRA", "lat": 50.033333, "lng": 8.570556, "passengers": 48000000, "country": "Germany", "id": "FRA"}, {"name": "Moscow", "iata": "SVO", "lat": 55.972642, "lng": 37.414589, "passengers": 49000000, "country": "Russia", "id": "SVO"}, {"name": "New Delhi", "iata": "DEL", "lat": 28.5665, "lng": 77.103089, "passengers": 39000000, "country": "India", "id": "DEL"}, {"name": "Shanghai", "iata": "PVG", "lat": 31.143378, "lng": 121.805214, "passengers": 32000000, "country": "China", "id": "PVG"},
@@ -44,9 +47,7 @@ flight_paths_json = [
 def init_data():
     """Converts the data to match the StreamlitGraphWidget requirements"""
     return ([
-                {"id": airport["iata"], "properties": {"label": airport["name"], "passengers": airport["passengers"],
-                                                       "country": airport["country"]},
-                 "coordinates": [airport["lat"], airport["lng"]]}
+                {"id": airport["iata"], "properties": {"label": airport["name"], "passengers": airport["passengers"], "country": airport["country"]}, "coordinates": [airport["lat"], airport["lng"]]}
                 for airport in airports_json
             ], [
                 {"start": flight_path["from"], "end": flight_path["to"]}
@@ -55,14 +56,19 @@ def init_data():
 
 airports, flight_paths = init_data()
 
+# pass node and edge dicts
 graph = StreamlitGraphWidget(airports, flight_paths)
-graph.set_node_styles_mapping(lambda node: {"image": "https://cdn-icons-png.flaticon.com/512/252/252025.png"})
-graph.set_edge_styles_mapping(lambda edge: {"dashStyle": "dash", "color": "black"})
+
+# provide the geo-coordinate mapping to the component
 graph.set_node_coordinate_mapping = "coordinates"
 
-st.markdown("---")
+# use icons for node visualization
+graph.set_node_styles_mapping(lambda node: {"image": "https://cdn-icons-png.flaticon.com/512/252/252025.png"})
 
-st.title("Geodata")
+# adjust edge visualization
+graph.set_edge_styles_mapping(lambda edge: {"dashStyle": "dash", "color": "black"})
+
+# render the component directly in the map layout view
 graph.show(graph_layout="map")
 
 st.markdown("---")
