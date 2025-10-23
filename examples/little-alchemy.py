@@ -22,36 +22,35 @@ def create_edge_label(id, target_id):
     """Generate edge labels"""
     result = []
     item = data[target_id]
-    for source1, source2 in item['p']:
+    for source1, source2 in item["p"]:
         if source1 == id:
-            result.append(data[source2]['n'])
+            result.append(data[source2]["n"])
         if source2 == id:
-            result.append(data[source1]['n'])
+            result.append(data[source1]["n"])
     return result
 
 parentSet = set()
-element_id = None
 def create_graph_data(element):
     """Creates the node and edge dicts that are visualized as graph"""
     result_nodes = []
     result_edges = []
     for key, item in data.items():
-        if item['n'] == element:
-            result_nodes.append({"id": key, 'properties': {'label': item['n']}})
+        if item["n"] == element:
+            result_nodes.append({"id": key, "properties": {"label": item["n"]}})
             element_id = key
-            if 'p' in item:
-                for source1, source2 in item['p']:
+            if "p" in item:
+                for source1, source2 in item["p"]:
                     parentSet.add(source1)
                     parentSet.add(source2)
-            if 'c' in item:
-                for child in item['c']:
+            if "c" in item:
+                for child in item["c"]:
                     if child not in parentSet:
-                        result_nodes.append({"id": child, 'properties': {'label': data[child]['n']}})
+                        result_nodes.append({"id": child, "properties": {"label": data[child]["n"]}})
                         result_edges.append({"start": key, "end": child, "properties": {
-                            'label': '+ ' + str(create_edge_label(element_id, child))[1:-1].replace("\'", "")}})
+                            "label": "+ " + str(create_edge_label(element_id, child))[1:-1].replace("\"", "")}})
                     else:
                         result_edges.append({"start": key, "end": child, "properties": {
-                            'label': '+ ' + str(create_edge_label(element_id, child))[1:-1].replace("\'", "")}})
+                            "label": "+ " + str(create_edge_label(element_id, child))[1:-1].replace("\"", "")}})
 
     return result_nodes, result_edges
 
@@ -60,32 +59,32 @@ col1, col2 = st.columns([1, 3])  # 1: narrow, 3: wide
 
 # create input elements
 with col1:
-    element_name = st.text_input('Enter an element name:', placeholder='e.g. cat')
-    edge_color = st.text_input('Enter an edge color:', placeholder='e.g. blue or #0000FF')
+    element_name = st.text_input("Enter an element name:", placeholder="e.g. cat")
+    edge_color = st.text_input("Enter an edge color:", placeholder="e.g. blue or #0000FF")
     node_size = st.slider("Change the node size:", 0.05, 5.0, 1.0)
 
 # create the structured data based on the given element
-nodes, edges = create_graph_data(element_name or 'butterfly')
+nodes, edges = create_graph_data(element_name or "butterfly")
 
 # pass node and edge dicts
 graph = StreamlitGraphWidget(nodes, edges)
 
 # use icons for node visualization
-graph.set_node_styles_mapping(lambda node: {'image': "https://littlealchemy2.com/static/icons/" + node['id'] + ".svg"})
+graph.node_styles_mapping = lambda node: {"image": "https://littlealchemy2.com/static/icons/" + node["id"] + ".svg"}
 
 # "prime"-nodes should be bigger than other nodes
-def custom_size(node):
-    if 'prime' in data[str(node['id'])]:
+def scale_primes(node):
+    if "prime" in data[str(node["id"])]:
         return 80, 80
     return 55, 55
-graph.set_node_size_mapping(custom_size)
+graph.node_size_mapping = scale_primes
 
 # color edges
-graph.set_edge_color_mapping(lambda edge: 'gray' if edge_color == '' else edge_color)
+graph.edge_color_mapping = lambda edge: "gray" if edge_color == "" else edge_color
 
-# pass the slider's size value as scale mapping
-graph.set_node_scale_factor_mapping(lambda: node_size)
+# pass the slider"s size value as scale mapping
+graph.node_scale_factor_mapping = lambda: node_size
 
 with col2:
     # render the component with a hierarchic layout and collapsed overview overlay
-    graph.show(graph_layout='hierarchic', overview=False)
+    graph.show(graph_layout="hierarchic", overview=False)

@@ -60,13 +60,13 @@ airports, flight_paths = init_data()
 graph = StreamlitGraphWidget(airports, flight_paths)
 
 # provide the geo-coordinate mapping to the component
-graph.set_node_coordinate_mapping = "coordinates"
+graph.node_coordinate_mapping = "coordinates"
 
 # use icons for node visualization
-graph.set_node_styles_mapping(lambda node: {"image": "https://cdn-icons-png.flaticon.com/512/252/252025.png"})
+graph.node_styles_mapping = lambda node: {"image": "https://cdn-icons-png.flaticon.com/512/252/252025.png"}
 
 # adjust edge visualization
-graph.set_edge_styles_mapping(lambda edge: {"dashStyle": "dash", "color": "black"})
+graph.edge_styles_mapping = lambda edge: {"dashStyle": "dash", "color": "black"}
 
 # render the component directly in the map layout view
 graph.show(graph_layout="map")
