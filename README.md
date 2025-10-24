@@ -65,14 +65,44 @@ To map custom properties to visual features, see [Data-driven visualization mapp
 
 <table>
     <tr>
-        <td><a href="https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/data-mapping.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/mapping.png" title="Mapping visualization" alt="Mapping visualization"></a>
-        <td><a href="https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/basic-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/introduction.png" title="Heat visualization" alt="Heat data visualization"></a>
+        <td>
+            <b>Automatic graph layouts</b><br>
+            <img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/layouts.png" title="Automatic graph layouts" alt="Automatic graph layouts">
+        </td>
+        <td>
+            <b>Item neighborhood</b>
+            <img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/neighborhood.png" title="Item neighborhood" alt="Item neighborhood">
+        </td>
     </tr>
     <tr>
-        <td><a href="https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/little-alchemy.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/little-alchemy.png" title="Interactive item visualization" alt="Interactive item visualization"></a>
-        <td><a href="https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/geodata-example.py"><img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/map.png" title="Geodata visualization" alt="-Geodata visualization"></a>
+        <td>
+            <b>Visualize data as heatmap</b>
+            <img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/mapping.png" title="Visualize data as heatmap" alt="Visualize data as heatmap">
+        </td>
+        <td>
+            <b>Use geospatial data</b>
+            <img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/map.png" title="Use geospatial data" alt="Use geospatial data">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Data-driven visualization</b>
+            <img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/little-alchemy.png" title="Data-driven visualization" alt="Data-driven visualization">
+        </td>
+        <td>
+            <b>Grouping and Folding</b>
+            <img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/nesting.png" title="Grouping and Folding" alt="Grouping and Folding">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Import graph data</b>
+            <img src="https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/main/images/import-code.png" title="Import graph data" alt="Import graph data">
+        </td>
     </tr>
 </table>
+
+Check out the [examples](https://github.com/yWorks/yfiles-graphs-for-streamlit/tree/main/examples).
 
 ## Constructor Parameters
 
