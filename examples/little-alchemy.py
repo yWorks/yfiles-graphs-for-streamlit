@@ -13,8 +13,7 @@ def load_data():
 data = load_data()
 
 # this example only uses a subset of the data
-num_elements = 50
-dataset = dict(itertools.islice(data.items(), num_elements))
+dataset = dict(itertools.islice(data.items(), 50))
 
 def create_edge_label(id, target_id):
     """Generate edge labels"""
@@ -32,23 +31,41 @@ def create_graph_data(element):
     """Creates the node and edge dicts that are visualized as graph"""
     result_nodes = []
     result_edges = []
-    for key, item in data.items():
-        if item["n"] == element:
+
+    if element is None:
+        # display a subset of the data
+        for key, item in dataset.items():
             result_nodes.append({"id": key, "properties": {"label": item["n"]}})
-            element_id = key
             if "p" in item:
                 for source1, source2 in item["p"]:
-                    parentSet.add(source1)
-                    parentSet.add(source2)
-            if "c" in item:
-                for child in item["c"]:
-                    if child not in parentSet:
-                        result_nodes.append({"id": child, "properties": {"label": data[child]["n"]}})
-                        result_edges.append({"start": key, "end": child, "properties": {
-                            "label": "+ " + str(create_edge_label(element_id, child))[1:-1].replace("\"", "")}})
-                    else:
-                        result_edges.append({"start": key, "end": child, "properties": {
-                            "label": "+ " + str(create_edge_label(element_id, child))[1:-1].replace("\"", "")}})
+                    if source1 in dataset and source2 in dataset:
+                        if not source1 == source2:
+                            result_edges.append(
+                                {"start": source1, "end": key, "properties": {"label": ("+ " + data[source2]["n"])}})
+                            result_edges.append(
+                                {"start": source2, "end": key, "properties": {"label": ("+ " + data[source1]["n"])}})
+                        else:
+                            result_edges.append(
+                                {"start": source1, "end": key, "properties": {"label": ("+ " + data[source2]["n"])}})
+    else:
+        # display the data for a specific element by looking at the whole dataset
+        for key, item in data.items():
+            if item["n"] == element:
+                result_nodes.append({"id": key, "properties": {"label": item["n"]}})
+                element_id = key
+                if "p" in item:
+                    for source1, source2 in item["p"]:
+                        parentSet.add(source1)
+                        parentSet.add(source2)
+                if "c" in item:
+                    for child in item["c"]:
+                        if child not in parentSet:
+                            result_nodes.append({"id": child, "properties": {"label": data[child]["n"]}})
+                            result_edges.append({"start": key, "end": child, "properties": {
+                                "label": "+ " + str(create_edge_label(element_id, child))[1:-1].replace("\"", "")}})
+                        else:
+                            result_edges.append({"start": key, "end": child, "properties": {
+                                "label": "+ " + str(create_edge_label(element_id, child))[1:-1].replace("\"", "")}})
 
     return result_nodes, result_edges
 
@@ -62,7 +79,7 @@ with col1:
     node_size = st.slider("Change the node size:", 0.05, 5.0, 1.0)
 
 # create the structured data based on the given element
-nodes, edges = create_graph_data(element_name or "butterfly")
+nodes, edges = create_graph_data(element_name or None)
 
 # pass node and edge dicts
 graph = StreamlitGraphWidget(nodes, edges)
@@ -71,11 +88,7 @@ graph = StreamlitGraphWidget(nodes, edges)
 graph.node_styles_mapping = lambda node: NodeStyle(image="https://littlealchemy2.com/static/icons/" + node["id"] + ".svg")
 
 # "prime"-nodes should be bigger than other nodes
-def scale_primes(node):
-    if "prime" in data[str(node["id"])]:
-        return 80, 80
-    return 55, 55
-graph.node_size_mapping = scale_primes
+graph.node_size_mapping = lambda node: (80, 80) if "prime" in data[str(node["id"])] else (55, 55)
 
 # color edges
 graph.edge_color_mapping = lambda edge: "gray" if edge_color == "" else edge_color
