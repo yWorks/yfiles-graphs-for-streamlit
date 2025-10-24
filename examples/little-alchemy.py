@@ -93,7 +93,7 @@ graph.node_size_mapping = lambda node: (80, 80) if "prime" in data[str(node["id"
 # color edges
 graph.edge_color_mapping = lambda edge: "gray" if edge_color == "" else edge_color
 
-# pass the slider"s size value as scale mapping
+# pass the slider's size value as scale mapping
 graph.node_scale_factor_mapping = lambda: node_size
 
 with col2:
