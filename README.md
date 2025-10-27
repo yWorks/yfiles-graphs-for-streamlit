@@ -42,25 +42,6 @@ edges = [
 StreamlitGraphWidget(nodes, edges).show()
 ```
 
-## Examples
-
-You can find more examples in [/examples](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples).
-
-## Providing Data
-
-The nodes / edges lists are required to be lists of `dict`s. There are only few requirements to the structuring of the provided data:
-
-* `nodes: [Dict]`
-  * Each node dict must provide an `id` property
-* `edges: [Dict]`
-  * Each edge dict must provide an `id`, `start` and `end` property that resolve to the node `id`s to form the graph structure.
-
-Optionally, provide additional properties in a `properties` property.
-
-For example, see [basic-example.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/basic-example.py).
-
-To map custom properties to visual features, see [Data-driven visualization mappings](#data-driven-visualization-mappings).
-
 ## Feature Highlights
 
 <table>
@@ -102,24 +83,49 @@ To map custom properties to visual features, see [Data-driven visualization mapp
     </tr>
 </table>
 
-Check out the [examples](https://github.com/yWorks/yfiles-graphs-for-streamlit/tree/main/examples).
+## Examples
 
-## Constructor Parameters
+You can find example implementations in [/examples](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples).
 
-The default constructor consumes structured node and edge lists, see [Providing Data](#providing-data) for structural requirements.
+## Providing Data
 
-The component also provides a named constructor `from_graph(g)` to import from other graph formats. The graph import supports
-`neo4j`, `graph_tool`, `networkx`, `pygraphviz` and `pandas` dataframes. For details on the different graph importers, 
-see [Graph Importers](https://yworks.github.io/yfiles-jupyter-graphs/03_graph_importers).
+The nodes / edges lists are required to be lists of `dict`s. There are only few requirements to the structuring of the provided data:
+
+* `nodes: [Dict]`
+  * Each node dict must provide an `id` property
+* `edges: [Dict]`
+  * Each edge dict must provide an `id`, `start` and `end` property that resolve to the node `id`s to form the graph structure.
+
+Optionally, provide additional properties in a `properties` property.
+
+For example, see [basic-example.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/basic-example.py).
+
+To map custom properties to visual features, see [Data-driven visualization mappings](#data-driven-visualization-mappings).
+
+### Importing from other graph packages
+
+Aside from passing structured data, you can also import from other graph formats:
+
+* `from_graph(graph)`
+  * `graph` supports
+    `neo4j`, `graph_tool`, `networkx`, `pygraphviz` and `pandas` dataframes. For details on the different graph importers,
+    see [Graph Importers](https://yworks.github.io/yfiles-jupyter-graphs/03_graph_importers).
 
 Example usage:
 ```python
 from yfiles_graphs_for_streamlit import StreamlitGraphWidget
 from networkx import erdos_renyi_graph
+# import other graph packages
 graph = StreamlitGraphWidget.from_graph(erdos_renyi_graph(10, 0.3, 2))
-# render the graph
+# create an interactive graph visualization
 graph.show()
 ```
+
+## Constructor
+
+The default constructor consumes structured node and edge lists, see [Providing Data](#providing-data) for structural requirements.
+
+Alternatively, use the `from_graph` constructor to import from other graph formats ([Importing from other graph packages](#importing-from-other-graph-packages)).
 
 ## Rendering the Component
 
@@ -232,7 +238,7 @@ Specify which nodes should be grouped together.
 
 For example, see [grouping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/grouping.py).
 
-### Automatic Layout Mappings
+### Fine-tuning automatic layouts
 Some mappings affect specific automatic layouts
 * `set_node_type_mapping(mapping: Callable[[node], str]) -> None`
   * Assign a specific "type" string to each item. This affects most of the automatic layouts such that same types are placed adjacent to each other, if possible.
