@@ -81,20 +81,19 @@ with col1:
 # create the structured data based on the given element
 nodes, edges = create_graph_data(element_name or None)
 
-# pass node and edge dicts
-graph = StreamlitGraphWidget(nodes, edges)
-
-# use icons for node visualization
-graph.node_styles_mapping = lambda node: NodeStyle(image="https://littlealchemy2.com/static/icons/" + node["id"] + ".svg")
-
-# "prime"-nodes should be bigger than other nodes
-graph.node_size_mapping = lambda node: (80, 80) if "prime" in data[str(node["id"])] else (55, 55)
-
-# color edges
-graph.edge_color_mapping = lambda edge: "gray" if edge_color == "" else edge_color
-
-# pass the slider's size value as scale mapping
-graph.node_scale_factor_mapping = lambda: node_size
+graph = StreamlitGraphWidget(
+    # pass node and edge dicts
+    nodes = nodes,
+    edges = edges,
+    # use icons for node visualization
+    node_styles_mapping = lambda node: NodeStyle(image="https://littlealchemy2.com/static/icons/" + node["id"] + ".svg"),
+    # "prime"-nodes should be bigger than other nodes
+    node_size_mapping = lambda node: (80, 80) if "prime" in data[str(node["id"])] else (55, 55),
+    # color edges
+    edge_color_mapping = lambda edge: "gray" if edge_color == "" else edge_color,
+    # pass the slider's size value as scale mapping
+    node_scale_factor_mapping = lambda node: node_size
+)
 
 with col2:
     # render the component with a hierarchic layout and collapsed overview overlay

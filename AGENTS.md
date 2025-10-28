@@ -30,7 +30,7 @@ edges = [
 graph = StreamlitGraphWidget(nodes, edges)
 
 # Return tuple (selected_nodes, selected_edges) only when sync_selection=True
-selected_nodes, selected_edges = graph.show(sync_selection=True, graph_layout=Layout.ORGANIC)
+selected_nodes, selected_edges = graph.show()
 st.write("Selected Edges:", ", ".join(str(e["id"]) for e in selected_edges))
 st.write("Selected Nodes:", ", ".join(str(n["id"]) for n in selected_nodes))
 
@@ -100,10 +100,12 @@ nodes_sel, edges_sel = widget.show(
 
 Each setter takes a **callable** that receives your original item dict and returns the specified type.
 
+Additionally, each mapping property is also a keyword argument to `show()` and `from_graph()`, which is the preferred way to set them.
+
 ### Property mappings (what downstream mappings “see”)
 ```python
-widget.set_node_property_mapping(lambda node: node.get("properties", {}))
-widget.set_edge_property_mapping(lambda edge: edge.get("properties", {}))
+widget.node_property_mapping = lambda node: node.get("properties", {})
+widget.edge_property_mapping = lambda edge: edge.get("properties", {})
 # By default, the original dict is returned.
 ```
 
@@ -130,104 +132,104 @@ widget.edge_label_mapping = lambda e: LabelStyle(
 
 ### Color mappings (CSS color strings)
 ```python
-widget.set_node_color_mapping(lambda n: "#4CAF50")
-widget.set_edge_color_mapping(lambda e: "rgb(120,120,120)")
+widget.node_color_mapping = lambda n: "#4CAF50"
+widget.edge_color_mapping = lambda e: "rgb(120,120,120)"
 ```
 
 ### Item visualization mappings
 ```python
 from yfiles_graphs_for_streamlit import NodeStyle, EdgeStyle, NodeShape, DashStyle
 
-widget.set_node_styles_mapping(lambda n: NodeStyle(
+widget.node_styles_mapping = lambda n: NodeStyle(
     color="#1976d2",
     image=None,                        # URL or data URL if desired
     shape=NodeShape.ROUND_RECTANGLE
-))
+)
 
-widget.set_edge_styles_mapping(lambda e: EdgeStyle(
+widget.edge_styles_mapping = lambda e: EdgeStyle(
     color="#999",
     directed=True,
     thickness=2.0,
     dash_style=DashStyle.DASH_DOT     # or a custom pattern string like "5, 10"
-))
+)
 ```
 
 Additional edge-specific helpers:
 ```python
 # Factor multiplied with the edge's base thickness
-widget.set_edge_thickness_factor_mapping(lambda e: 1.0 + float(e["properties"].get("weight", 0)))
+widget.edge_thickness_factor_mapping = lambda e: 1.0 + float(e["properties"].get("weight", 0))
 
 # Per-edge directed override
-widget.set_directed_mapping(lambda e: e["properties"].get("label") == "knows")
+widget.directed_mapping = lambda e: e["properties"].get("label") == "knows"
 ```
 
 ### Geometry mappings
 > Automatic layout overwrites positions unless you select `Layout.NO_LAYOUT`.
 ```python
-widget.set_node_scale_factor_mapping(lambda n: 1.0)
-widget.set_node_size_mapping(lambda n: (80.0, 30.0))                          # (width, height)
-widget.set_node_position_mapping(lambda n: (100.0, 200.0))                    # (x, y)
-widget.set_node_layout_mapping(lambda n: (100.0, 200.0, 80.0, 30.0))          # (x, y, width, height)
+widget.node_scale_factor_mapping = lambda n: 1.0
+widget.node_size_mapping = lambda n: (80.0, 30.0)                         # (width, height)
+widget.node_position_mapping = lambda n: (100.0, 200.0)                   # (x, y)
+widget.node_layout_mapping = lambda n: (100.0, 200.0, 80.0, 30.0)         # (x, y, width, height)
 ```
 
 ### Geospatial mapping
 ```python
-widget.set_node_coordinate_mapping(lambda n: (52.5200, 13.4050))               # (latitude, longitude)
+widget.node_coordinate_mapping = lambda n: (52.5200, 13.4050)               # (latitude, longitude)
 # Use graph_layout=Layout.MAP to position nodes by geo-coordinates.
 ```
 
 ### Hierarchy mappings (grouping)
 ```python
 # If group nodes already exist in your dataset, return their ids:
-widget.set_node_parent_mapping(lambda n: n["properties"].get("group_id"))
+widget.node_parent_mapping = lambda n: n["properties"].get("group_id")
 
 # If group nodes do NOT exist, create them on the fly (returns id-like value):
-widget.set_node_parent_group_mapping(lambda n: n["properties"].get("dept", "Group A"))
+widget.node_parent_group_mapping = lambda n: n["properties"].get("dept", "Group A")
 ```
 
 ### Layout‑affecting mappings
 ```python
-widget.set_node_type_mapping(lambda n: n["properties"].get("type", "default"))
-widget.set_node_cell_mapping(lambda n: (n["properties"].get("row", 0), n["properties"].get("col", 0)))
+widget.node_type_mapping = lambda n: n["properties"].get("type", "default")
+widget.node_cell_mapping = lambda n: (n["properties"].get("row", 0), n["properties"].get("col", 0))
 ```
 
 ### Heat mapping (normalized 0..1)
 ```python
-widget.set_heat_mapping(lambda el: float(el["properties"].get("score", 0.0)))
+widget.heat_mapping = lambda el: float(el["properties"].get("score", 0.0))
 ```
 
 ## 7) Recipes
 
 **A. Labels from a property, colors by boolean**
 ```python
-widget.set_node_label_mapping(lambda n: "label")
-widget.set_node_color_mapping(lambda n: "#2e7d32" if n["properties"].get("likes_pizza") else "#9e9e9e")
+widget.node_label_mapping = lambda n: "label"
+widget.node_color_mapping = lambda n: "#2e7d32" if n["properties"].get("likes_pizza") else "#9e9e9e"
 ```
 
 **B. Thicker, directed edges for “since 1992”**
 ```python
-widget.set_edge_thickness_factor_mapping(lambda e: 2.0 if e["properties"].get("since") == "1992" else 1.0)
-widget.set_directed_mapping(lambda e: True)
+widget.edge_thickness_factor_mapping = lambda e: 2.0 if e["properties"].get("since") == "1992" else 1.0
+widget.directed_mapping = lambda e: True
 ```
 
 **C. Geospatial view**
 ```python
 from yfiles_graphs_for_streamlit import Layout
-widget.set_node_coordinate_mapping(lambda n: (n["properties"]["lat"], n["properties"]["lon"]))
+widget.node_coordinate_mapping = lambda n: (n["properties"]["lat"], n["properties"]["lon"])
 widget.show(graph_layout=Layout.MAP)
 ```
 
 **D. Manual positions (no layout)**
 ```python
 from yfiles_graphs_for_streamlit import Layout
-widget.set_node_layout_mapping(lambda n: (n["properties"]["x"], n["properties"]["y"], 80, 30))
+widget.node_layout_mapping = lambda n: (n["properties"]["x"], n["properties"]["y"], 80, 30)
 widget.show(graph_layout=Layout.NO_LAYOUT)
 ```
 
 **E. Group nodes by department**
 ```python
 from yfiles_graphs_for_streamlit import Layout
-widget.set_node_parent_group_mapping(lambda n: n["properties"].get("department", "Unknown"))
+widget.node_parent_group_mapping = lambda n: n["properties"].get("department", "Unknown")
 widget.show(graph_layout=Layout.HIERARCHIC)
 ```
 
@@ -294,6 +296,7 @@ widget.show(highlight=[nodes[0], edges[2]])
 ---
 
 ## 10) Notes & best practices
+- Each mapping property is also a keyword argument to `show()` and `from_graph()`, which is the preferred way to set them.
 - Use **`Layout.NO_LAYOUT`** to respect manual positions from geometry mappings.
 - Prefer **Enums** over raw strings to reduce typos and get IDE completion.
 - With **multiple widgets**, always set unique `key` values.

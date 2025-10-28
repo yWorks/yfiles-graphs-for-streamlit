@@ -19,7 +19,7 @@ pip install yfiles_graphs_for_streamlit
 
 ## Usage
 
-See also [basic-example.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/basic-example.py).
+See also [basic-example.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/basic-example.py).
 
 ```python
 
@@ -85,7 +85,7 @@ StreamlitGraphWidget(nodes, edges).show()
 
 ## Examples
 
-You can find example implementations in [/examples](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples).
+You can find example implementations in [/examples](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples).
 
 ## Providing Data
 
@@ -98,7 +98,7 @@ The nodes / edges lists are required to be lists of `dict`s. There are only few 
 
 Optionally, provide additional properties in a `properties` property.
 
-For example, see [basic-example.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/basic-example.py).
+For example, see [basic-example.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/basic-example.py).
 
 To map custom properties to visual features, see [Data-driven visualization mappings](#data-driven-visualization-mappings).
 
@@ -143,7 +143,7 @@ Call `show()` to render the component in a streamlit file. There are optional ar
 | `key`            | `str`    | Streamlit's optional unique key for multiple component instances.                                                                                                  | `None`                                      |
 
 The return value of `show()` is a tuple of node and edge lists that are interactively selected. The returned lists are only updated when `sync_selection` is set to `True`.
-For example, see [selection.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/selection.py).
+For example, see [selection.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/selection.py).
 
 ## Data-driven Visualization Mappings
 
@@ -151,19 +151,24 @@ You can adjust the graph visualization on an item basis by providing the followi
 Each mapping is passed the original data object of your original node / edge data, and you need to return
 a mapping specific dict or value to that is reflected in the graph visualization.
 
+To return to the default behavior, simply assign `None` to the mapping.
+
 ### Property Mappings
 Specify what data should be put on the items and therefore be considered by the other data mappings
-* `set_node_property_mapping(mapping: Callable[[node], Dict]) -> None`
-* `set_edge_property_mapping(mapping: Callable[[edge], Dict]) -> None`
+* `node_property_mapping: Optional[Union[str, Callable[[dict], dict]]]`
+* `edge_property_mapping: Optional[Union[str, Callable[[dict], dict]]]`
 
 By default, the origin dict for each item is returned.
 
 ### Label Mappings
 Specify the visualized text on each item.
-* `set_node_label_mapping(mapping: Callable[[node], str | LabelStyle]) -> None`
-* `set_edge_label_mapping(mapping: Callable[[edge], str | LabelStyle]) -> None`
+* `node_label_mapping: Optional[Union[str, Callable[[dict], Union[str, LabelStyle]]]]`
+* `edge_label_mapping: Optional[Union[str, Callable[[dict], Union[str, LabelStyle]]]]`
 
-Returning a string will first be resolved against the `properties` of the item's dict and if there is no such property key the value is used as-is. Alternatively, return a `LabelStyle` object with the following properties to have full control over the item's text:
+Returning a string will first be resolved against the `properties` of the item's dict and if there is no such property key the value is used as-is. Alternatively, return a `LabelStyle` object with the following properties to have full control over the item's text.
+
+#### `LabelStyle`
+* `font: Font`: The font used for the label.
 * `text: string`: The text that is added to the item.
 * `font_size: int`: The text size.
 * `font_weight: FontWeight`: The font weight. See [FontWeight](#fontweight).
@@ -175,82 +180,82 @@ Returning a string will first be resolved against the `properties` of the item's
 * `wrapping: TextWrapping`: Text wrapping for the label. Must be set in combination with `maximum_width`. See [TextWrapping](#textwrapping).
 * `text_alignment: TextAlignment`: The horizontal text alignment when `wrapping` is enabled. See [TextAlignment](#textalignment).
 
-For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/data-mapping.py).
+For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/data-mapping.py).
 
 ### Color Mappings
 Specify the color of each item.
-* `set_node_color_mapping(mapping: Callable[[node], str]) -> None`
-* `set_edge_color_mapping(mapping: Callable[[edge], str]) -> None`
+* `node_color_mapping: Optional[Union[str, Callable[[dict], str]]]`
+* `edge_color_mapping: Optional[Union[str, Callable[[dict], str]]]`
 
-Return any CSS color value (e.g. a color constant, a hex value, an rgb string, etc.).
+Return any CSS color value (e.g., a color constant, a hex value, a rgb string, etc.).
 
-For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/data-mapping.py).
+For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/data-mapping.py).
 
 ### Item Visualization Mappings
 Specify the visualization properties of nodes and edges.
-* `set_node_styles_mapping(mapping: Callable[[node], NodeStyle]) -> None`
+* `node_styles_mapping: Optional[Union[str, Callable[[dict], NodeStyle]]]`
   * Available node properties on `NodeStyle`:
     * `color`: CSS color value
     * `image`: URL or data URL of the image
     * `shape`: `NodeShape` enum, see [NodeShape](#nodeshape)
-* `set_edge_styles_mapping(mapping: Callable[[edge], EdgeStyle]) -> None`
+* `edge_styles_mapping: Optional[Union[str, Callable[[dict], EdgeStyle]]]`
   * Available edge properties on `EdgeStyle`:
     * `color`: `str` (a CSS color value)
     * `directed`: `bool`
     * `thickness`: `float`
     * `dash_style`: `DashStyle` (see [DashStyle](#dashstyle)) or a dashing string like `'5 10'` or `'5, 10'`
-* `set_edge_thickness_factor_mapping(mapping: Callable[[edge], float]) -> None`
+* `edge_thickness_factor_mapping: Optional[Union[str, Callable[[dict], float]]]`
   * Controls the thickness of the edges with a factor that is multiplied to its base size.
-* `set_directed_mapping(mapping: Callable[[edge], bool]) -> None`
+* `directed_mapping: Optional[Union[str, Callable[[dict], bool]]]`
   * Allows specifying which edge should be visualized with direction (indicated by an arrow).
 
-For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/data-mapping.py).
+For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/data-mapping.py).
 
 ### Geometry Mappings
 Specify the location and/or size of nodes. Note that the location of an item is overwritten from an automatic layout,
 unless the `no_layout` option is used.
-* `set_node_scale_factor_mapping(mapping: Callable[[node], float]) -> None`
+* `node_scale_factor_mapping: Optional[Union[str, Callable[[dict], float]]]`
   * Controls the node size with a factor that is multiplied to its base size.
-* `set_node_size_mapping(mapping: Callable[[node], Tuple[float, float]]) -> None`
+* `node_size_mapping: Optional[Union[str, Callable[[int, dict], float]]]`
   * Controls the node size by width and height by returning a tuple `(width, height)`.
-* `set_node_position_mapping(mapping: Callable[[node], Tuple[float, float]]) -> None`
+* `node_position_mapping: Optional[Union[str, Callable[[dict], Tuple[float, float]]]]`
   * Controls the position of the node by returning a tuple: `(x, y)`.
-* `set_node_layout_mapping(mapping: Callable[[node], Tuple[float, float, float, float]]) -> None`
+* `node_layout_mapping: Optional[Union[str, Callable[[dict], Tuple[float, float, float, float]]]]`
   * Controls the bounding box of the nodes (position and size) by returning a 4-tuple: `(x, y, width, height)`.
 
-For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/data-mapping.py).
+For example, see [data-mapping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/data-mapping.py).
 
 ### Geospatial Mapping
 Specify a geo-coordinate for the nodes that is used by the geospatial layout option.
-* `set_node_coordinate_mapping(mapping: Callable[[node], Tuple[float, float]]) -> None`
+* `node_coordinate_mapping: Optional[Union[str, Callable[[dict], Tuple[float, float]]]]`
   * The mapping is supposed to return a tuple of `(latitude, longitude)`.
 
-For example, see [geodata.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/geodata.py).
+For example, see [geodata.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/geodata.py).
 
 ### Hierarchy Mappings
 Specify which nodes should be grouped together.
-* `set_node_parent_mapping(mapping: Callable[[node], str | int | float]) -> None`
+* `node_parent_mapping: Optional[Union[str, Callable[[dict], Union[str, int, float]]]]`
   * This mapping does not create new group nodes and just resolves the mapped id against the given dataset.
     It should be used when the group nodes are already **part of** the given dataset.
-* `set_node_parent_group_mapping(mapping: Callable[[node], str | int | float]) -> None`
+* `node_parent_group_mapping: Optional[Union[str, Callable[[dict], Union[str, dict]]]]`
   * This mapping always creates new dicts based on the given mapping.
     It should be used when the group nodes are **not part of** the given dataset.
 
-For example, see [grouping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/grouping.py).
+For example, see [grouping.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/grouping.py).
 
 ### Fine-tuning automatic layouts
 Some mappings affect specific automatic layouts
-* `set_node_type_mapping(mapping: Callable[[node], str]) -> None`
+* `node_type_mapping: Optional[Union[str, Callable[[dict], str]]]`
   * Assign a specific "type" string to each item. This affects most of the automatic layouts such that same types are placed adjacent to each other, if possible.
-* `set_node_cell_mapping(mapping: Callable[[node], Tuple[float, float]]) -> None`
+* `node_cell_mapping: Optional[Union[str, Callable[[dict], Tuple[int, int]]]]`
   * Assign a cell tuple `(row, column)` to each node. This information is considered by the hierarchical layout and helps to fine-tune the result, for example, to highlight specific structures of the graph or to convey critical information. 
 
 ### Heat Mapping
 Numeric values on nodes and edges may be visualized as a heatmap overlay on the graph visualization.
-* `set_heat_mapping(mapping: Callable[[element], float]) -> None`
+* `heat_mapping: Optional[Union[str, Callable[[dict], float]]]`
   * The returned heat needs to be normalized in-between `0` and `1`.
 
-For example, see [geodata.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/examples/geodata.py).
+For example, see [geodata.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/geodata.py).
 
 ## Enums
 The enums can be imported from `yfiles_graphs_for_streamlit`.
@@ -331,7 +336,7 @@ Is only in effect when `maximum_width` is specified on `LabelStyle`.
 | `LabelPosition.WEST`   | Places the label on the left side of the node (exterior).  |
 
 ## Code of Conduct
-This project and everyone participating in it is governed by the [Code of Conduct](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/CODE_OF_CONDUCT.md).
+This project and everyone participating in it is governed by the [Code of Conduct](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code.
 Please report unacceptable behavior to [contact@yworks.com](mailto:contact@yworks.com).
 
@@ -345,11 +350,11 @@ Please also provide a clear and descriptive title and stick to the issue templat
 See [issues](https://github.com/yWorks/yfiles-graphs-for-streamlit/issues).
 
 ## Dependencies
-The following dependencies are bundled with the component (see also [THIRD-PARTY-NOTICES.json](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/THIRD-PARTY-NOTICES.json)).
+The following dependencies are bundled with the component (see also [THIRD-PARTY-NOTICES.json](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/THIRD-PARTY-NOTICES.json)).
 - [streamlit-component-lib](https://www.npmjs.com/package/streamlit-component-lib)
 
 ## Third-Party Libraries Used at Runtime
-Additionally, the following libraries are used at runtime of the component (see also [THIRD-PARTY-NOTICES-RUNTIME.json](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/master/THIRD-PARTY-NOTICES-RUNTIME.json)).
+Additionally, the following libraries are used at runtime of the component (see also [THIRD-PARTY-NOTICES-RUNTIME.json](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/THIRD-PARTY-NOTICES-RUNTIME.json)).
 - [@ctrl/tinycolor](https://github.com/scttcper/tinycolor)
 - [@mdi/js](https://github.com/Templarian/MaterialDesign-JS)
 - [@sentry/browser](https://www.npmjs.com/package/@sentry/browser)

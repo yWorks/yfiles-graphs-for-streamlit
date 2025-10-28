@@ -58,19 +58,16 @@ def init_data():
 
 airports, flight_paths = init_data()
 
-# pass node and edge dicts
-graph = StreamlitGraphWidget(airports, flight_paths)
-
-# provide a mapping along which the nodes should be grouped
-graph.node_parent_group_mapping = "country"
-
-# color group nodes differently from child nodes
-graph.node_color_mapping = lambda node: "#fe019a" if "country" in node["properties"] else "#B57EDC"
-
-# provide the geo-coordinate mapping to the component
-graph.node_coordinate_mapping = "coordinates"
-
-# render the component
-graph.show()
+StreamlitGraphWidget(
+    # pass node and edge dicts
+    nodes=airports,
+    edges=flight_paths,
+    # provide a mapping along which the nodes should be grouped
+    node_parent_group_mapping="country",
+    # color group nodes differently from child nodes
+    node_color_mapping=lambda node: "#fe019a" if "country" in node["properties"] else "#B57EDC",
+    # provide the geo-coordinate mapping to the component
+    node_coordinate_mapping="coordinates"
+).show()
 
 st.markdown("---")
