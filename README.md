@@ -110,6 +110,7 @@ Aside from passing structured data, you can also import from other graph formats
   * `graph` supports
     `neo4j`, `graph_tool`, `networkx`, `pygraphviz` and `pandas` dataframes. For details on the different graph importers,
     see [Graph Importers](https://yworks.github.io/yfiles-jupyter-graphs/03_graph_importers).
+  * Each data-mapping property can also be passed as a keyword argument. Due to type hints, keyword arguments are preferred for defining data mappings.
 
 Example usage:
 ```python
@@ -126,6 +127,8 @@ graph.show()
 The default constructor consumes structured node and edge lists, see [Providing Data](#providing-data) for structural requirements.
 
 Alternatively, use the `from_graph` constructor to import from other graph formats ([Importing from other graph packages](#importing-from-other-graph-packages)).
+
+Each data-mapping property can also be passed as a keyword argument to the constructor or `from_graph()`. Due to type hints, keyword arguments are preferred for defining data mappings.
 
 ## Rendering the Component
 
