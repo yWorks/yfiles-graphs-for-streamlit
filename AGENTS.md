@@ -100,7 +100,7 @@ nodes_sel, edges_sel = widget.show(
 
 Each setter takes a **callable** that receives your original item dict and returns the specified type.
 
-Additionally, each mapping property is also a keyword argument to `show()` and `from_graph()`, which is the preferred way to set them.
+Each mapping property can also be passed as a keyword argument to the constructor or `from_graph()`. Due to type hints, keyword arguments are preferred for defining data mappings.
 
 ### Property mappings (what downstream mappings “see”)
 ```python
@@ -296,7 +296,7 @@ widget.show(highlight=[nodes[0], edges[2]])
 ---
 
 ## 10) Notes & best practices
-- Each mapping property is also a keyword argument to `show()` and `from_graph()`, which is the preferred way to set them.
+- Each mapping property can also be passed as a keyword argument to the constructor or `from_graph()`. Due to type hints, keyword arguments are preferred for defining data mappings.
 - Use **`Layout.NO_LAYOUT`** to respect manual positions from geometry mappings.
 - Prefer **Enums** over raw strings to reduce typos and get IDE completion.
 - With **multiple widgets**, always set unique `key` values.
