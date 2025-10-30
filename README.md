@@ -7,7 +7,13 @@
 **Streamlit component for displaying and interacting with graph data using [yFiles - the Graph Visualization SDK](https://www.yfiles.com/the-yfiles-sdk).**
 This component allows you to display and interact with graph data directly within your Streamlit apps. It supports full customization of nodes, edges, layouts, and behaviors, making it suitable for a wide range of graph-based use cases.
 
----
+<p align="center">
+  <a href="https://www.youtube.com/embed/NhsuNR_tt58">
+    <img src="https://img.youtube.com/vi/NhsuNR_tt58/maxresdefault.jpg" width="600" alt="Graph Visualization in Streamlit"/>
+  </a>
+  <br>
+  <a href="https://www.youtube.com/embed/NhsuNR_tt58">Watch on YouTube</a>
+</p>
 
 ## Installation
 
