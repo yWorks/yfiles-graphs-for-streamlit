@@ -98,7 +98,7 @@ nodes_sel, edges_sel = widget.show(
 
 ## 6) Data‑driven visualization mappings
 
-Each setter takes a **callable** that receives your original item dict and returns the specified type.
+Each setter takes a **callable** that receives your original item and returns the specified type.
 
 Each of the following mapping function can also be set as property on the widget. However, due to better type hints, keyword arguments are preferred for defining data mappings.
 
@@ -123,8 +123,8 @@ widget = StreamlitGraphWidget(
     # Option A: specify a string (resolved first against properties, otherwise used verbatim)
     node_label_mapping="label",
     # Option B: set a lambda, return a LabelStyle
-    edge_label_mapping=lambda e: LabelStyle(
-        text=e["properties"]["label"],
+    edge_label_mapping=lambda edge: LabelStyle(
+        text=edge["properties"]["label"],
         font_size=12,
         font_weight=FontWeight.BOLD,
         color="#222",
@@ -142,8 +142,8 @@ widget = StreamlitGraphWidget(
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    node_color_mapping=lambda n: "#4CAF50",
-    edge_color_mapping=lambda e: "rgb(120,120,120)",
+    node_color_mapping=lambda node: "#4CAF50",
+    edge_color_mapping=lambda edge: "rgb(120,120,120)",
 )
 ```
 
@@ -154,12 +154,12 @@ from yfiles_graphs_for_streamlit import NodeStyle, EdgeStyle, NodeShape, DashSty
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    node_styles_mapping=lambda n: NodeStyle(
+    node_styles_mapping=lambda node: NodeStyle(
         color="#1976d2",
         image=None,                        # URL or data URL if desired
         shape=NodeShape.ROUND_RECTANGLE,
     ),
-    edge_styles_mapping=lambda e: EdgeStyle(
+    edge_styles_mapping=lambda edge: EdgeStyle(
         color="#999",
         directed=True,
         thickness=2.0,
@@ -174,9 +174,9 @@ widget = StreamlitGraphWidget(
     nodes,
     edges,
     # Factor multiplied with the edge's base thickness
-    edge_thickness_factor_mapping=lambda e: 1.0 + float(e["properties"].get("weight", 0)),
+    edge_thickness_factor_mapping=lambda edge: 1.0 + float(edge["properties"].get("weight", 0)),
     # Per-edge directed override
-    directed_mapping=lambda e: e["properties"].get("label") == "knows",
+    directed_mapping=lambda edge: edge["properties"].get("label") == "knows",
 )
 ```
 
@@ -186,10 +186,10 @@ widget = StreamlitGraphWidget(
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    node_scale_factor_mapping=lambda n: 1.0,
-    node_size_mapping=lambda n: (80.0, 30.0),                       # (width, height)
-    node_position_mapping=lambda n: (100.0, 200.0),                 # (x, y)
-    node_layout_mapping=lambda n: (100.0, 200.0, 80.0, 30.0),       # (x, y, width, height)
+    node_scale_factor_mapping=lambda node: 1.0,
+    node_size_mapping=lambda node: (80.0, 30.0),                       # (width, height)
+    node_position_mapping=lambda node: (100.0, 200.0),                 # (x, y)
+    node_layout_mapping=lambda node: (100.0, 200.0, 80.0, 30.0),       # (x, y, width, height)
 )
 ```
 
@@ -198,7 +198,7 @@ widget = StreamlitGraphWidget(
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    node_coordinate_mapping=lambda n: (52.5200, 13.4050),  # (latitude, longitude)
+    node_coordinate_mapping=lambda node: (52.5200, 13.4050),  # (latitude, longitude)
 )
 # Use graph_layout=Layout.MAP to position nodes by geo-coordinates.
 ```
@@ -209,9 +209,9 @@ widget = StreamlitGraphWidget(
     nodes,
     edges,
     # If group nodes already exist in your dataset, return their ids:
-    node_parent_mapping=lambda n: n["properties"].get("group_id"),
+    node_parent_mapping=lambda node: node["properties"].get("group_id"),
     # If group nodes do NOT exist, create them on the fly (returns id-like value):
-    node_parent_group_mapping=lambda n: n["properties"].get("dept", "Group A"),
+    node_parent_group_mapping=lambda node: node["properties"].get("dept", "Group A"),
 )
 ```
 
@@ -220,8 +220,8 @@ widget = StreamlitGraphWidget(
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    node_type_mapping=lambda n: n["properties"].get("type", "default"),
-    node_cell_mapping=lambda n: (n["properties"].get("row", 0), n["properties"].get("col", 0)),
+    node_type_mapping=lambda node: node["properties"].get("type", "default"),
+    node_cell_mapping=lambda node: (node["properties"].get("row", 0), node["properties"].get("col", 0)),
 )
 ```
 
@@ -230,7 +230,7 @@ widget = StreamlitGraphWidget(
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    heat_mapping=lambda el: float(el["properties"].get("score", 0.0)),
+    heat_mapping=lambda item: float(item["properties"].get("score", 0.0)),
 )
 ```
 
@@ -241,8 +241,8 @@ widget = StreamlitGraphWidget(
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    node_label_mapping=lambda n: "label",
-    node_color_mapping=lambda n: "#2e7d32" if n["properties"].get("likes_pizza") else "#9e9e9e",
+    node_label_mapping=lambda node: "label",
+    node_color_mapping=lambda node: "#2e7d32" if node["properties"].get("likes_pizza") else "#9e9e9e",
 )
 ```
 
@@ -251,8 +251,8 @@ widget = StreamlitGraphWidget(
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    edge_thickness_factor_mapping=lambda e: 2.0 if e["properties"].get("since") == "1992" else 1.0,
-    directed_mapping=lambda e: True,
+    edge_thickness_factor_mapping=lambda edge: 2.0 if edge["properties"].get("since") == "1992" else 1.0,
+    directed_mapping=lambda edge: True,
 )
 ```
 
@@ -263,7 +263,7 @@ from yfiles_graphs_for_streamlit import Layout
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    node_coordinate_mapping=lambda n: (n["properties"]["lat"], n["properties"]["lon"]),
+    node_coordinate_mapping=lambda node: (node["properties"]["lat"], node["properties"]["lon"]),
 )
 widget.show(graph_layout=Layout.MAP)
 ```
@@ -275,7 +275,7 @@ from yfiles_graphs_for_streamlit import Layout
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    node_layout_mapping=lambda n: (n["properties"]["x"], n["properties"]["y"], 80, 30),
+    node_layout_mapping=lambda node: (node["properties"]["x"], node["properties"]["y"], 80, 30),
 )
 widget.show(graph_layout=Layout.NO_LAYOUT)
 ```
@@ -287,7 +287,7 @@ from yfiles_graphs_for_streamlit import Layout
 widget = StreamlitGraphWidget(
     nodes,
     edges,
-    node_parent_group_mapping=lambda n: n["properties"].get("department", "Unknown"),
+    node_parent_group_mapping=lambda node: node["properties"].get("department", "Unknown"),
 )
 widget.show(graph_layout=Layout.HIERARCHIC)
 ```

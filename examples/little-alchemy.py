@@ -1,7 +1,7 @@
 import streamlit as st
 import itertools
 import urllib.request, json
-from yfiles_graphs_for_streamlit import StreamlitGraphWidget, Layout, NodeStyle
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget, Layout, NodeStyle, Node, Edge
 
 st.set_page_config(page_title="yFiles Graphs for Streamlit", layout="wide")
 
@@ -35,23 +35,26 @@ def create_graph_data(element):
     if element is None:
         # display a subset of the data
         for key, item in dataset.items():
-            result_nodes.append({"id": key, "properties": {"label": item["n"]}})
+            result_nodes.append(Node(key, {"label": item["n"]}))
             if "p" in item:
                 for source1, source2 in item["p"]:
                     if source1 in dataset and source2 in dataset:
                         if not source1 == source2:
                             result_edges.append(
-                                {"start": source1, "end": key, "properties": {"label": ("+ " + data[source2]["n"])}})
+                                Edge(start=source1, end=key, properties={"label": ("+ " + data[source2]["n"])})
+                            )
                             result_edges.append(
-                                {"start": source2, "end": key, "properties": {"label": ("+ " + data[source1]["n"])}})
+                                Edge(start=source2, end=key, properties={"label": ("+ " + data[source1]["n"])})
+                            )
                         else:
                             result_edges.append(
-                                {"start": source1, "end": key, "properties": {"label": ("+ " + data[source2]["n"])}})
+                                Edge(start=source1, end=key, properties={"label": ("+ " + data[source2]["n"])})
+                            )
     else:
         # display the data for a specific element by looking at the whole dataset
         for key, item in data.items():
             if item["n"] == element:
-                result_nodes.append({"id": key, "properties": {"label": item["n"]}})
+                result_nodes.append(Node(key, {"label": item["n"]}))
                 element_id = key
                 if "p" in item:
                     for source1, source2 in item["p"]:
@@ -60,12 +63,14 @@ def create_graph_data(element):
                 if "c" in item:
                     for child in item["c"]:
                         if child not in parentSet:
-                            result_nodes.append({"id": child, "properties": {"label": data[child]["n"]}})
-                            result_edges.append({"start": key, "end": child, "properties": {
-                                "label": "+ " + str(create_edge_label(element_id, child))[1:-1].replace("\"", "")}})
+                            result_nodes.append(Node(child, {"label": data[child]["n"]}))
+                            result_edges.append(
+                                Edge(start=key, end=child, properties={"label": "+ " + str(create_edge_label(element_id, child))[1:-1].replace("\"", "")})
+                            )
                         else:
-                            result_edges.append({"start": key, "end": child, "properties": {
-                                "label": "+ " + str(create_edge_label(element_id, child))[1:-1].replace("\"", "")}})
+                            result_edges.append(
+                                Edge(start=key, end=child, properties={"label": "+ " + str(create_edge_label(element_id, child))[1:-1].replace("\"", "")})
+                            )
 
     return result_nodes, result_edges
 

@@ -1,5 +1,5 @@
 import streamlit as st
-from yfiles_graphs_for_streamlit import StreamlitGraphWidget
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget, Node, Edge
 
 st.set_page_config(
     page_title="yFiles Graphs for Streamlit",
@@ -47,12 +47,10 @@ flight_paths_json = [
 def init_data():
     """Converts the data to match the StreamlitGraphWidget requirements"""
     return ([
-                {"id": airport["iata"], "properties": {"label": airport["name"], "passengers": airport["passengers"],
-                                                       "country": airport["country"]},
-                 "coordinates": [airport["lat"], airport["lng"]]}
+                Node(airport["iata"], {"label": airport["name"], "passengers": airport["passengers"], "country": airport["country"], "coordinates": [airport["lat"], airport["lng"]]})
                 for airport in airports_json
             ], [
-                {"start": flight_path["from"], "end": flight_path["to"]}
+                Edge(flight_path["from"], flight_path["to"])
                 for flight_path in flight_paths_json
             ])
 

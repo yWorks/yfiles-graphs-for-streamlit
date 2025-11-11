@@ -30,19 +30,19 @@ See also [basic-example.py](https://github.com/yWorks/yfiles-graphs-for-streamli
 ```python
 
 import streamlit as st
-from yfiles_graphs_for_streamlit import StreamlitGraphWidget
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget, Node, Edge
 
 nodes = [
-    {"id": 0, "properties": {"firstName": "Alpha", "label": "Person A"}},
-    {"id": 1, "properties": {"firstName": "Bravo", "label": "Person B"}},
-    {"id": 2, "properties": {"firstName": "Charlie", "label": "Person C", "has_hat": False}},
-    {"id": 3, "properties": {"firstName": "Delta", "label": "Person D", "likes_pizza": True}}
+    Node(id=0, properties={"firstName": "Alpha", "label": "Person A"}),
+    Node(id=1, properties={"firstName": "Bravo", "label": "Person B"}),
+    Node(id=2, properties={"firstName": "Charlie", "label": "Person C", "has_hat": False}),
+    Node(id=3, properties={"firstName": "Delta", "label": "Person D", "likes_pizza": True})
 ]
 edges = [
-    {"id": 0, "start": 0, "end": 1, "properties": {"since": "1992", "label": "knows"}},
-    {"id": 1, "start": 1, "end": 3, "properties": {"label": "knows", "since": "1992"}},
-    {"id": 2, "start": 2, "end": 3, "properties": {"label": "knows", "since": "1992"}},
-    {"id": 3, "start": 0, "end": 2, "properties": {"label": "knows", "since": 234}}
+    Edge(start=0, end=1, properties={"since": "1992", "label": "knows"}),
+    Edge(start=1, end=3, properties={"label": "knows", "since": "1992"}),
+    Edge(start=2, end=3, properties={"label": "knows", "since": "1992"}),
+    Edge(start=0, end=2, properties={"label": "knows", "since": 234})
 ]
 
 StreamlitGraphWidget(nodes, edges).show()
@@ -95,14 +95,16 @@ You can find example implementations in [/examples](https://github.com/yWorks/yf
 
 ## Providing Data
 
-The nodes / edges lists are required to be lists of `dict`s. There are only few requirements to the structuring of the provided data:
+The nodes / edges lists are required to be lists of `Node`s and `Edge`s. There are only few requirements to the structuring of the provided data:
 
-* `nodes: [Dict]`
-  * Each node dict must provide an `id` property
-* `edges: [Dict]`
-  * Each edge dict must provide an `id`, `start` and `end` property that resolve to the node `id`s to form the graph structure.
+* `nodes: List[Union[Node, Dict[str, Any]]]`
+  * Each node must provide an `id` property
+* `edges: List[Union[Edge, Dict[str, Any]]]`
+  * Each edge must provide a `start` and `end` property that resolve to the node `id`s to form the graph structure.
 
 Optionally, provide additional properties in a `properties` property.
+
+You can either use the `Node` and `Edge` dataclasses from `yfiles_graphs_for_streamlit`, or use `dict`s with the required properties.
 
 For example, see [basic-example.py](https://github.com/yWorks/yfiles-graphs-for-streamlit/blob/main/examples/basic-example.py).
 
