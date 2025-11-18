@@ -202,16 +202,35 @@ widget = StreamlitGraphWidget(
 ```
 
 ### Hierarchy mappings (grouping)
-```python
-widget = StreamlitGraphWidget(
-    nodes,
-    edges,
-    # If group nodes already exist in your dataset, return their ids:
-    node_parent_mapping=lambda node: node["properties"].get("group_id"),
-    # If group nodes do NOT exist, create them on the fly (returns id-like value):
-    node_parent_group_mapping=lambda node: node["properties"].get("dept", "Group A"),
-)
-```
+There are two ways to group nodes
+* `node_parent_mapping: Optional[Union[str, Callable[[dict], Union[str, int, float]]]]`
+    * This mapping does not create new group nodes and just resolves the mapped id against the given dataset.
+      It should be used when the group nodes are already **part of** the given dataset.
+    * It should return an id for each given node object which is then used as parent group node for this child node. If the parent node does not existing in the dataset, no grouping is created.
+
+* `node_parent_group_mapping: Optional[Union[str, Callable[[dict], Union[str, dict]]]]`
+    * This mapping always creates new group nodes based on the given mapping.
+      It should be used when the group nodes are **not part of** the given dataset.
+    * The returned value must either be a `str` which is used as label and id for the new group node (i.e. nodes with the same mapped `str` are grouped together), or it must be a dict with a mandatory `label` property (return same labels for different nodes defines the group for these nodes) and optional more key-value pairs that are added as properties to the group. These additional properties are also considered when resolving other node mappings (e.g. for the styling of group nodes).
+    * Example Snippets
+    ```python
+    StreamlitGraphWidget(
+      nodes=airports,
+      edges=flight_paths,
+      # Assuming each node has a "country" property, group all nodes with the same "country" into groups, 
+      # labeled with the value of the "country" property.
+      node_parent_group_mapping="country"
+    ).show()
+    ```
+    ```python
+    StreamlitGraphWidget(
+      nodes=airports,
+      edges=flight_paths,
+      # Assuming each node has a "country" property, group all nodes with the same "country" into groups, 
+      # and assign additional properties to group nodes that can be mapped e.g. by node_styles_mapping.
+      node_parent_group_mapping=lambda node: {'label': node['properties']['country'], 'color': '#9F4499', 'char_count': len(node['properties']['country'])}
+    ).show()
+    ```
 
 ### Layout‑affecting mappings
 ```python
