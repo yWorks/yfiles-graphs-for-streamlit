@@ -102,4 +102,4 @@ graph = StreamlitGraphWidget(
 
 with col2:
     # render the component with a hierarchic layout and collapsed overview overlay
-    graph.show(graph_layout=Layout.HIERARCHIC, overview=False)
+    graph.show(graph_layout=Layout.HIERARCHIC, overview=False, key="graph-component")

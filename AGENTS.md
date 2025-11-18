@@ -29,19 +29,16 @@ edges = [
 
 graph = StreamlitGraphWidget(nodes, edges)
 
-# Return tuple (selected_nodes, selected_edges) only when sync_selection=True
-selected_nodes, selected_edges = graph.show()
-st.write("Selected Edges:", ", ".join(str(e["id"]) for e in selected_edges))
-st.write("Selected Nodes:", ", ".join(str(n["id"]) for n in selected_nodes))
+# Shows the interactive graph component
+graph.show()
 
-# A second widget on the same page must have a unique key
-selected_nodes2, selected_edges2 = graph.show(
+# Return tuple (selected_nodes, selected_edges) only when sync_selection=True
+selected_nodes, selected_edges = graph.show(
     sync_selection=True,
-    graph_layout=Layout.HIERARCHIC,
-    key="second_widget"
+    graph_layout=Layout.HIERARCHIC
 )
-st.write("Second widget (edges):", ", ".join(str(e["id"]) for e in selected_edges2))
-st.write("Second widget (nodes):", ", ".join(str(n["id"]) for n in selected_nodes2))
+st.write("Second widget (edges):", ", ".join(str(e["id"]) for e in selected_edges))
+st.write("Second widget (nodes):", ", ".join(str(n["id"]) for n in selected_nodes))
 ```
 
 ## 3) Data model you pass in
@@ -84,9 +81,8 @@ nodes_sel, edges_sel = widget.show(
     sync_selection=False,                       # default False
     sidebar={"enabled": False},                 # or {"enabled": True, "start_with": "Neighborhood"|"Data"|"Search"|"About"}
     neighborhood={"max_distance": 1, "selected_nodes": []},
-    overview=True,
-    highlight=[],
-    key=None
+    overview=True,                              # default True
+    key="graph-component"                       # default None
 )
 ```
 
@@ -94,7 +90,9 @@ nodes_sel, edges_sel = widget.show(
 - `sync_selection=False` → returns `None`.
 - `sync_selection=True`  → returns a **tuple** `(selected_nodes, selected_edges)`; each item is a `List[Dict]` from your original data.
 
-> When placing multiple widgets on a page, set a unique `key` for each. With `sync_selection=True`, consider caching your data to avoid excessive re-rendering.
+### Preserving state across reruns
+It is recommended to define a specific `key` to preserve the widget's state across reruns. For example, when the passed 
+data is changed interactively, then the component only updates its graph without rebuilding the entire component.
 
 ## 6) Data‑driven visualization mappings
 
@@ -297,23 +295,17 @@ widget.show(graph_layout=Layout.HIERARCHIC)
 selected_nodes, selected_edges = widget.show(sync_selection=True)
 ```
 
-**G. Highlight specific items**
-```python
-widget.show(highlight=[nodes[0], edges[2]])
-```
-
 ## 8) Option reference
 
-| Option           | Type     | Description                                                                                           | Default                                     |
-|------------------|----------|-------------------------------------------------------------------------------------------------------|---------------------------------------------|
-| `directed`       | bool     | Whether edges show direction indicators.                                                              | `True`                                      |
-| `graph_layout`   | `Layout` | Automatic layout. See **Enums → Layout**.                                                             | `Layout.ORGANIC`                            |
-| `sync_selection` | bool     | If `True`, `show()` returns `(selected_nodes, selected_edges)`.                                       | `False`                                     |
-| `sidebar`        | dict     | Sidebar options: `{"enabled": bool, "start_with": "Neighborhood" or "Data" or "Search"  or "About"}`. | `{"enabled": False}`                        |
-| `neighborhood`   | dict     | `{"max_distance": int, "selected_nodes": list}` to filter neighbors.                                  | `{"max_distance": 1, "selected_nodes": []}` |
-| `overview`       | bool     | Whether the overview is expanded.                                                                     | `True`                                      |
-| `highlight`      | list     | Nodes/edges to highlight.                                                                             | `[]`                                        |
-| `key`            | str      | Streamlit unique key for multiple instances.                                                          | `None`                                      |
+| Option           | Type     | Description                                                                                                                                                                                                                                                                                                                       | Default                                     |
+|------------------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| `directed`       | bool     | Whether edges show direction indicators.                                                                                                                                                                                                                                                                                          | `True`                                      |
+| `graph_layout`   | `Layout` | Automatic layout. See **Enums → Layout**.                                                                                                                                                                                                                                                                                         | `Layout.ORGANIC`                            |
+| `sync_selection` | bool     | If `True`, `show()` returns `(selected_nodes, selected_edges)`.                                                                                                                                                                                                                                                                   | `False`                                     |
+| `sidebar`        | dict     | Sidebar options: `{"enabled": bool, "start_with": "Neighborhood" or "Data" or "Search"  or "About"}`.                                                                                                                                                                                                                             | `{"enabled": False}`                        |
+| `neighborhood`   | dict     | `{"max_distance": int, "selected_nodes": list}` to filter neighbors.                                                                                                                                                                                                                                                              | `{"max_distance": 1, "selected_nodes": []}` |
+| `overview`       | bool     | Whether the overview is expanded.                                                                                                                                                                                                                                                                                                 | `True`                                      |
+| `key`            | `str`    | Streamlit's optional unique identifier that defines the component's stable identity and state across reruns. Use a fixed key to preserve the state between reruns. If omitted, Streamlit assigns an implicit key based on the call location and code execution path. Changing the key recreates the component with a fresh state. | `None`                                      |
 
 ---
 
@@ -358,5 +350,4 @@ widget.show(highlight=[nodes[0], edges[2]])
 - Each mapping property can also be passed as a keyword argument to the constructor or `from_graph()`. Due to type hints, keyword arguments are preferred for defining data mappings.
 - Use **`Layout.NO_LAYOUT`** to respect manual positions from geometry mappings.
 - Prefer **Enums** over raw strings to reduce typos and get IDE completion.
-- With **multiple widgets**, always set unique `key` values.
 - With **`sync_selection=True`**, debounce downstream expensive operations if selections change frequently.
