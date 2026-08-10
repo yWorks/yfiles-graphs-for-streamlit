@@ -36,7 +36,7 @@ graph = StreamlitGraphWidget.from_graph(
 )
 
 # get the selected nodes and edges from the component with sync_selection=True
-selected_nodes, selected_edges = graph.show(sync_selection=True, graph_layout=Layout.HIERARCHIC)
+selected_nodes, selected_edges = graph.show(sync_selection=True, graph_layout=Layout.HIERARCHICAL)
 st.write("Selected Edges: ", ", ".join(str(edge["id"]) for edge in selected_edges))
 st.write("Selected Nodes: ", ", ".join(str(node["properties"]["label"]) for node in selected_nodes))
 

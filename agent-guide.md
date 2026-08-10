@@ -10,43 +10,33 @@ pip install yfiles_graphs_for_streamlit
 ## 2) Minimal working example
 ```python
 import streamlit as st
-from yfiles_graphs_for_streamlit import StreamlitGraphWidget, Layout
+from yfiles_graphs_for_streamlit import StreamlitGraphWidget, Node, Edge, Layout
 
 st.set_page_config(page_title="yFiles Graphs for Streamlit", layout="wide")
 
 nodes = [
-    {"id": 0, "properties": {"firstName": "Alpha", "label": "Person A"}},
-    {"id": 1, "properties": {"firstName": "Bravo", "label": "Person B"}},
-    {"id": 2, "properties": {"firstName": "Charlie", "label": "Person C", "has_hat": False}},
-    {"id": 3, "properties": {"firstName": "Delta", "label": "Person D", "likes_pizza": True}}
+    Node(id=0, properties={"firstName": "Alpha", "label": "Person A"}),
+    Node(id=1, properties={"firstName": "Bravo", "label": "Person B"}),
+    Node(id=2, properties={"firstName": "Charlie", "label": "Person C", "has_hat": False}),
+    Node(id=3, properties={"firstName": "Delta", "label": "Person D", "likes_pizza": True})
 ]
 edges = [
-    {"id": 0, "start": 0, "end": 1, "properties": {"since": "1992", "label": "knows"}},
-    {"id": 1, "start": 1, "end": 3, "properties": {"label": "knows", "since": "1992"}},
-    {"id": 2, "start": 2, "end": 3, "properties": {"label": "knows", "since": "1992"}},
-    {"id": 3, "start": 0, "end": 2, "properties": {"label": "knows", "since": 234}}
+    Edge(start=0, end=1, properties={"since": "1992", "label": "knows"}),
+    Edge(start=1, end=3, properties={"label": "knows", "since": "1992"}),
+    Edge(start=2, end=3, properties={"label": "knows", "since": "1992"}),
+    Edge(start=0, end=2, properties={"label": "knows", "since": 234})
 ]
 
 graph = StreamlitGraphWidget(nodes, edges)
 
 # Shows the interactive graph component
 graph.show()
-
-# Return tuple (selected_nodes, selected_edges) only when sync_selection=True
-selected_nodes, selected_edges = graph.show(
-    sync_selection=True,
-    graph_layout=Layout.HIERARCHIC
-)
-st.write("Second widget (edges):", ", ".join(str(e["id"]) for e in selected_edges))
-st.write("Second widget (nodes):", ", ".join(str(n["id"]) for n in selected_nodes))
 ```
 
 ## 3) Data model you pass in
 
 - **Nodes:** list of dicts. Each node **must** have `id`. Optional `properties` dict for arbitrary data.
 - **Edges:** list of dicts. Each edge **must** have `id`, `start`, `end` referencing node `id`s. Optional `properties` dict.
-
-> The library uses your original dicts; ids may be numbers or strings. Properties can be nested.
 
 ## 4) Constructors
 
@@ -57,7 +47,7 @@ from yfiles_graphs_for_streamlit import StreamlitGraphWidget
 widget = StreamlitGraphWidget(nodes, edges)
 
 # Import from other graph formats
-widget = StreamlitGraphWidget.from_graph(g)   # supports neo4j, graph_tool, networkx, pygraphviz, pandas
+widget = StreamlitGraphWidget.from_graph(g)   # supports neo4j, graph_tool, networkx, pygraphviz, pandas, igraph
 ```
 
 **NetworkX example**
@@ -82,6 +72,7 @@ nodes_sel, edges_sel = widget.show(
     sidebar={"enabled": False},                 # or {"enabled": True, "start_with": "Neighborhood"|"Data"|"Search"|"About"}
     neighborhood={"max_distance": 1, "selected_nodes": []},
     overview=True,                              # default True
+    height=500,                                 # default 500 (pixels)
     key="graph-component"                       # default None
 )
 ```
@@ -123,6 +114,7 @@ widget = StreamlitGraphWidget(
     # Option B: set a lambda, return a LabelStyle
     edge_label_mapping=lambda edge: LabelStyle(
         text=edge["properties"]["label"],
+        font="serif",
         font_size=12,
         font_weight=FontWeight.BOLD,
         color="#222",
@@ -314,6 +306,16 @@ widget.show(graph_layout=Layout.HIERARCHIC)
 selected_nodes, selected_edges = widget.show(sync_selection=True)
 ```
 
+**G. Custom height / inside a fixed-height container**
+```python
+# Fixed height (pixels). Minimum recommended height is 420px.
+widget.show(height=700)
+
+# If the Streamlit container has a fixed height, subtract ~40px for borders and padding
+with st.container(height=800):
+    widget.show(height=760)
+```
+
 ## 8) Option reference
 
 | Option           | Type     | Description                                                                                                                                                                                                                                                                                                                       | Default                                     |
@@ -324,6 +326,7 @@ selected_nodes, selected_edges = widget.show(sync_selection=True)
 | `sidebar`        | dict     | Sidebar options: `{"enabled": bool, "start_with": "Neighborhood" or "Data" or "Search"  or "About"}`.                                                                                                                                                                                                                             | `{"enabled": False}`                        |
 | `neighborhood`   | dict     | `{"max_distance": int, "selected_nodes": list}` to filter neighbors.                                                                                                                                                                                                                                                              | `{"max_distance": 1, "selected_nodes": []}` |
 | `overview`       | bool     | Whether the overview is expanded.                                                                                                                                                                                                                                                                                                 | `True`                                      |
+| `height`         | int      | Height of the component in pixels. The widget needs at least **420px** to render correctly; lower values clip UI elements. When placed inside a fixed-height `st.container(height=...)`, account for the container's top/bottom padding and borders (e.g. use `container_height - 40`).                                           | `500`                                       |
 | `key`            | `str`    | Streamlit's optional unique identifier that defines the component's stable identity and state across reruns. Use a fixed key to preserve the state between reruns. If omitted, Streamlit assigns an implicit key based on the call location and code execution path. Changing the key recreates the component with a fresh state. | `None`                                      |
 
 ---
@@ -345,7 +348,7 @@ selected_nodes, selected_edges = widget.show(sync_selection=True)
 - `Layout.NO_LAYOUT` — Do not apply automatic layout (use provided positions).
 
 ### `NodeShape`
-- `ELLIPSE`, `HEXAGON`, `HEXAGON2`, `OCTAGON`, `PILL`, `RECTANGLE`, `ROUND_RECTANGLE`, `TRIANGLE`
+- `ELLIPSE`, `HEXAGON`, `HEXAGON_STANDING`, `OCTAGON`, `PILL`, `RECTANGLE`, `ROUND_RECTANGLE`, `TRIANGLE`, `SQUIRCLE`
 
 ### `DashStyle`
 - `SOLID`, `DASH`, `DOT`, `DASH_DOT`, `DASH_DOT_DOT`  
@@ -358,7 +361,7 @@ selected_nodes, selected_edges = widget.show(sync_selection=True)
 - `CENTER`, `LEFT`, `RIGHT`
 
 ### `TextWrapping` *(effective if `maximum_width` is set)*
-- `CHARACTER`, `CHARACTER_ELLIPSIS`, `WORD`, `WORD_ELLIPSIS`, `NONE`
+- `NONE`, `CLIP`, `TRIM_CHARACTER`, `TRIM_CHARACTER_ELLIPSIS`, `TRIM_WORD`, `TRIM_WORD_ELLIPSIS`, `WRAP_CHARACTER`, `WRAP_CHARACTER_ELLIPSIS`, `WRAP_WORD`, `WRAP_WORD_ELLIPSIS`
 
 ### `LabelPosition`
 - `CENTER`, `NORTH`, `EAST`, `SOUTH`, `WEST`
@@ -370,3 +373,4 @@ selected_nodes, selected_edges = widget.show(sync_selection=True)
 - Use **`Layout.NO_LAYOUT`** to respect manual positions from geometry mappings.
 - Prefer **Enums** over raw strings to reduce typos and get IDE completion.
 - With **`sync_selection=True`**, debounce downstream expensive operations if selections change frequently.
+- The widget needs at least **420px** of height to render correctly. Setting a lower `height` results in clipped UI elements.

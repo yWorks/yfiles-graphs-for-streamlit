@@ -1,13 +1,5 @@
 {
-  "@ctrl/tinycolor@3.6.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/scttcper/tinycolor",
-    "publisher": "Scott Cooper",
-    "email": "scttcper@gmail.com",
-    "path": "node_modules/@ctrl/tinycolor",
-    "licenseFile": "node_modules/@ctrl/tinycolor/LICENSE"
-  },
-  "@mdi/js@6.9.96": {
+  "@mdi/js@7.4.47": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/Templarian/MaterialDesign-JS",
     "publisher": "Austin Andrews",
@@ -20,6 +12,14 @@
     "path": "node_modules/leaflet",
     "licenseFile": "node_modules/leaflet/LICENSE"
   },
+  "tinycolor2@1.6.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/bgrins/TinyColor",
+    "publisher": "Brian Grinstead",
+    "email": "briangrinstead@gmail.com",
+    "path": "node_modules/tinycolor2",
+    "licenseFile": "node_modules/tinycolor2/LICENSE"
+  },
   "vue-json-viewer@3.0.4": {
     "licenses": "MIT",
     "repository": "https://github.com/chenfengjw163/vue-json-viewer",
@@ -28,7 +28,7 @@
     "path": "node_modules/vue-json-viewer",
     "licenseFile": "node_modules/vue-json-viewer/LICENSE"
   },
-  "vue@3.5.20": {
+  "vue@3.5.39": {
     "licenses": "MIT",
     "repository": "https://github.com/vuejs/core",
     "publisher": "Evan You",

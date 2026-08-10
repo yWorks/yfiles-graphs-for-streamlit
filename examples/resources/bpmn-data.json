@@ -1,0 +1,207 @@
+{
+  "processName": "E-Commerce Order Fulfillment",
+  "description": "BPMN representation of customer journey from website entry to order receipt.",
+  "pools": [
+    {
+      "id": "pool_customer",
+      "name": "Customer",
+      "lanes": []
+    },
+    {
+      "id": "pool_merchant",
+      "name": "Merchant Platform",
+      "lanes": [
+        {
+          "id": "lane_security",
+          "name": "Security Lane"
+        },
+        {
+          "id": "lane_finance",
+          "name": "Finance & Accounts"
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start_website",
+      "label": "Start: Open Website",
+      "type": "StartEvent",
+      "pool": "pool_customer"
+    },
+    {
+      "id": "browse_items",
+      "label": "Browse Items",
+      "type": "UserTask",
+      "pool": "pool_customer",
+      "subprocess": "Cart Management"
+    },
+    {
+      "id": "add_to_cart",
+      "label": "Add Item to Cart",
+      "type": "UserTask",
+      "pool": "pool_customer",
+      "subprocess": "Cart Management"
+    },
+    {
+      "id": "checkout",
+      "label": "Proceed to Checkout",
+      "type": "UserTask",
+      "pool": "pool_customer",
+      "subprocess": "Cart Management"
+    },
+    {
+      "id": "dec_logged_in",
+      "label": "Logged In?",
+      "type": "GatewayExclusive",
+      "pool": "pool_customer"
+    },
+    {
+      "id": "auth_user",
+      "label": "Login / Register",
+      "type": "UserTask",
+      "pool": "pool_customer"
+    },
+    {
+      "id": "enter_shipping_payment",
+      "label": "Enter Shipping & Payment Info",
+      "type": "UserTask",
+      "pool": "pool_customer"
+    },
+    {
+      "id": "submit_order",
+      "label": "Submit Order",
+      "type": "UserTask",
+      "pool": "pool_customer"
+    },
+    {
+      "id": "run_fraud_check",
+      "label": "Run Automated Fraud Check",
+      "type": "ServiceTask",
+      "pool": "pool_merchant",
+      "lane": "lane_security"
+    },
+    {
+      "id": "dec_fraud_approved",
+      "label": "Approved?",
+      "type": "GatewayExclusive",
+      "pool": "pool_merchant",
+      "lane": "lane_security"
+    },
+    {
+      "id": "cancel_order",
+      "label": "Cancel Order",
+      "type": "ServiceTask",
+      "pool": "pool_merchant",
+      "lane": "lane_security"
+    },
+    {
+      "id": "end_rejected",
+      "label": "End: Order Rejected",
+      "type": "EndEvent",
+      "pool": "pool_merchant",
+      "lane": "lane_security"
+    },
+    {
+      "id": "auth_payment",
+      "label": "Authorize Payment",
+      "type": "ServiceTask",
+      "pool": "pool_merchant",
+      "lane": "lane_finance"
+    },
+    {
+      "id": "receive_package",
+      "label": "Receive Package",
+      "type": "CatchMessageEvent",
+      "pool": "pool_customer"
+    },
+    {
+      "id": "end_order_completed",
+      "label": "End: Order Completed",
+      "type": "EndEvent",
+      "pool": "pool_customer"
+    }
+  ],
+  "edges": [
+    {
+      "from": "start_website",
+      "to": "browse_items",
+      "type": "SequenceFlow"
+    },
+    {
+      "from": "browse_items",
+      "to": "add_to_cart",
+      "type": "SequenceFlow"
+    },
+    {
+      "from": "add_to_cart",
+      "to": "checkout",
+      "type": "SequenceFlow"
+    },
+    {
+      "from": "checkout",
+      "to": "dec_logged_in",
+      "type": "SequenceFlow"
+    },
+    {
+      "from": "dec_logged_in",
+      "to": "auth_user",
+      "condition": "No",
+      "type": "ConditionalFlow"
+    },
+    {
+      "from": "auth_user",
+      "to": "enter_shipping_payment",
+      "type": "SequenceFlow"
+    },
+    {
+      "from": "dec_logged_in",
+      "to": "enter_shipping_payment",
+      "condition": "Yes",
+      "type": "ConditionalFlow"
+    },
+    {
+      "from": "enter_shipping_payment",
+      "to": "submit_order",
+      "type": "SequenceFlow"
+    },
+    {
+      "from": "submit_order",
+      "to": "run_fraud_check",
+      "type": "SequenceFlow"
+    },
+    {
+      "from": "run_fraud_check",
+      "to": "dec_fraud_approved",
+      "type": "SequenceFlow"
+    },
+    {
+      "from": "dec_fraud_approved",
+      "to": "cancel_order",
+      "condition": "No",
+      "type": "ConditionalFlow"
+    },
+    {
+      "from": "cancel_order",
+      "to": "end_rejected",
+      "type": "SequenceFlow"
+    },
+    {
+      "from": "dec_fraud_approved",
+      "to": "auth_payment",
+      "condition": "Yes",
+      "type": "ConditionalFlow"
+    },
+    {
+      "from": "auth_payment",
+      "to": "receive_package",
+      "label": "Transit & Delivery",
+      "type": "MessageFlow"
+    },
+    {
+      "from": "receive_package",
+      "to": "end_order_completed",
+      "type": "SequenceFlow"
+    }
+  ]
+}

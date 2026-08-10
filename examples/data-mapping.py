@@ -47,6 +47,6 @@ graph = StreamlitGraphWidget.from_graph(
 )
 
 # render the component
-graph.show(graph_layout=Layout.HIERARCHIC)
+graph.show(graph_layout=Layout.HIERARCHICAL)
 
 st.markdown("---")

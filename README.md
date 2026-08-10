@@ -48,6 +48,16 @@ edges = [
 StreamlitGraphWidget(nodes, edges).show()
 ```
 
+## AI Coding Assistant
+
+Working with an AI coding agent? We recommend providing it with our [agent guide](agent-guide.md).
+
+**Example Start Prompt:**
+> Read the instructions at https://raw.githubusercontent.com/yWorks/yfiles-graphs-for-streamlit/refs/heads/main/agent-guide.md. 
+> Then, create a Steamlit app that visualizes the `<data-file-path>` with `yfiles_graphs_for_streamlit`. 
+> Be creative and design visualizations that highlight interesting aspects of the data.
+
+
 ## Feature Highlights
 
 <table>
@@ -178,12 +188,12 @@ Specify the visualized text on each item.
 Returning a string will first be resolved against the `properties` of the item's dict and if there is no such property key the value is used as-is. Alternatively, return a `LabelStyle` object with the following properties to have full control over the item's text.
 
 #### `LabelStyle`
-* `font: Font`: The font used for the label.
-* `text: string`: The text that is added to the item.
+* `font: str`: The font-family used for the label, defaults to "Arial".
+* `text: str`: The text that is added to the item.
 * `font_size: int`: The text size.
 * `font_weight: FontWeight`: The font weight. See [FontWeight](#fontweight).
-* `color: string`: The text color.
-* `background_color: string`: A color string that is used as the label's background.
+* `color: str`: The text color.
+* `background_color: str`: A color string that is used as the label's background.
 * `position: LabelPosition`: Where the label is placed relatively to the node. See [LabelPosition](#labelposition).
 * `maximum_width: int`: The maximum width of the label. By default, the label is clipped at the given size, or wrapped when `wrapping` is set.
 * `maximum_height: int`: The maximum height of the label. Clips the label at the given height. May be combined with `wrapping`.
@@ -296,7 +306,7 @@ The enums can be imported from `yfiles_graphs_for_streamlit`.
 |---------------------------------|------------------------------------------------------------------------------------------------------------|
 | `Layout.CIRCULAR`               | Arranges nodes in singly cycle and bundles edge paths.                                                     |
 | `Layout.CIRCULAR_STRAIGHT_LINE` | Arranges nodes in singly cycle and uses straight-line edge paths.                                          |
-| `Layout.HIERARCHIC`             | Organizes nodes in hierarchical layers to emphasize directional flow.                                      |
+| `Layout.HIERARCHICAL`           | Organizes nodes in hierarchical layers to emphasize directional flow.                                      |
 | `Layout.ORGANIC`                | Uses a force-directed algorithm to create a natural, free-form network layout.                             |
 | `Layout.INTERACTIVE_ORGANIC`    | Similar to `ORGANIC` but dynamically adjusts the layout as the user interacts with it.                     |
 | `Layout.ORTHOGONAL`             | Positions nodes on a grid with right-angled edges for clear, structured diagrams.                          |
@@ -308,16 +318,17 @@ The enums can be imported from `yfiles_graphs_for_streamlit`.
 | `Layout.NO_LAYOUT`              | Leaves node positions unchanged without applying any automatic layout.                                     |
 
 ### `NodeShape`
-| Enum                        | Description                                                                                                     |
-|-----------------------------|-----------------------------------------------------------------------------------------------------------------|
-| `NodeShape.ELLIPSE`         | An elliptical shape.                                                                                            |
-| `NodeShape.HEXAGON`         | A 6-sided polygon where the top and bottom edges are aligned with the top and bottom edges of the bounding box. |
-| `NodeShape.HEXAGON2`        | A 6-sided polygon where the left and right edges are aligned with the left and right edges of the bounding box. |
-| `NodeShape.OCTAGON`         | An 8-sided polygon where the edges are aligned with the edges of the bounding box.                              |
-| `NodeShape.PILL`            | A stadium shape with the shorter sides rounded.                                                                 |
-| `NodeShape.RECTANGLE`       | A rectangular shape.                                                                                            |
-| `NodeShape.ROUND_RECTANGLE` | A rectangular shape with rounded corners.                                                                       |
-| `NodeShape.TRIANGLE`        | A triangular shape that points to the top.                                                                      |
+| Enum                         | Description                                                                                                     |
+|------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `NodeShape.ELLIPSE`          | An elliptical shape.                                                                                            |
+| `NodeShape.HEXAGON`          | A 6-sided polygon where the top and bottom edges are aligned with the top and bottom edges of the bounding box. |
+| `NodeShape.HEXAGON_STANDING` | A 6-sided polygon where the left and right edges are aligned with the left and right edges of the bounding box. |
+| `NodeShape.OCTAGON`          | An 8-sided polygon where the edges are aligned with the edges of the bounding box.                              |
+| `NodeShape.PILL`             | A stadium shape with the shorter sides rounded.                                                                 |
+| `NodeShape.RECTANGLE`        | A rectangular shape.                                                                                            |
+| `NodeShape.ROUND_RECTANGLE`  | A rectangular shape with rounded corners.                                                                       |
+| `NodeShape.TRIANGLE`         | A triangular shape that points to the top.                                                                      |
+| `NodeShape.SQUIRCLE`         | A shape similar to a `PILL`, but the shorter sides are rounded with semi-squircles instead of semicircles.      |
 
 ### `DashStyle`
 | Enum                        | Description                           |
@@ -349,13 +360,18 @@ Only affects multiline texts.
 ### `TextWrapping`
 Is only in effect when `maximum_width` is specified on `LabelStyle`.
 
-| Enum                              | Description                                                              |
-|-----------------------------------|--------------------------------------------------------------------------|
-| `TextWrapping.CHARACTER`          | Character wrapping at `maximum_width`  .                                 |
-| `TextWrapping.CHARACTER_ELLIPSIS` | Character wrapping at `maximum_width` with ellipsis at `maximum_height`. |
-| `TextWrapping.WORD`               | Word wrapping at `maximum_width`.                                        |
-| `TextWrapping.WORD_ELLIPSIS`      | Word wrapping at `maximum_width` with ellipsis at `maximum_height`.      |
-| `TextWrapping.NONE`               | The text is not wrapped, nor clipped.                                    |
+| Enum                                   | Description                                                              |
+|----------------------------------------|--------------------------------------------------------------------------|
+| `TextWrapping.TRIM_CHARACTER`          | Character trimming at `maximum_width`.                                   |
+| `TextWrapping.TRIM_CHARACTER_ELLIPSIS` | Character trimming at `maximum_width` with ellipsis at `maximum_height`. |
+| `TextWrapping.TRIM_WORD`               | Word trimming at `maximum_width`.                                        |
+| `TextWrapping.TRIM_WORD_ELLIPSIS`      | Word trimming at `maximum_width` with ellipsis at `maximum_height`.      |
+| `TextWrapping.WRAP_CHARACTER`          | Character wrapping at `maximum_width`  .                                 |
+| `TextWrapping.WRAP_CHARACTER_ELLIPSIS` | Character wrapping at `maximum_width` with ellipsis at `maximum_height`. |
+| `TextWrapping.WRAP_WORD`               | Word wrapping at `maximum_width`.                                        |
+| `TextWrapping.WRAP_WORD_ELLIPSIS`      | Word wrapping at `maximum_width` with ellipsis at `maximum_height`.      |
+| `TextWrapping.CLIP`                    | The text is clipped at `maximum_width` and `maximum_height`.             |
+| `TextWrapping.NONE`                    | The text is not wrapped, nor clipped.                                    |
 
 ### `LabelPosition`
 | Enum                   | Description                                                |

@@ -1,0 +1,1998 @@
+{
+  "meta": {
+    "name": "Fictional Pharmaceutical Supply Chain",
+    "description": "Simplified pharmaceutical supply chain dataset for demonstration purposes.",
+    "version": "1.1-simplified",
+    "generatedWith": "Python",
+    "seed": 42
+  },
+  "groups": [
+    {
+      "id": "group_country_argentina",
+      "label": "Argentina",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_latin_america"
+    },
+    {
+      "id": "group_country_belgium",
+      "label": "Belgium",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_europe"
+    },
+    {
+      "id": "group_country_canada",
+      "label": "Canada",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_north_america"
+    },
+    {
+      "id": "group_country_china",
+      "label": "China",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_asia"
+    },
+    {
+      "id": "group_country_colombia",
+      "label": "Colombia",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_latin_america"
+    },
+    {
+      "id": "group_country_egypt",
+      "label": "Egypt",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_middle_east_and_africa"
+    },
+    {
+      "id": "group_country_india",
+      "label": "India",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_asia"
+    },
+    {
+      "id": "group_country_ireland",
+      "label": "Ireland",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_europe"
+    },
+    {
+      "id": "group_country_italy",
+      "label": "Italy",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_europe"
+    },
+    {
+      "id": "group_country_japan",
+      "label": "Japan",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_asia"
+    },
+    {
+      "id": "group_country_mexico",
+      "label": "Mexico",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_north_america"
+    },
+    {
+      "id": "group_country_singapore",
+      "label": "Singapore",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_asia"
+    },
+    {
+      "id": "group_country_south_korea",
+      "label": "South Korea",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_asia"
+    },
+    {
+      "id": "group_country_spain",
+      "label": "Spain",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_europe"
+    },
+    {
+      "id": "group_country_switzerland",
+      "label": "Switzerland",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_europe"
+    },
+    {
+      "id": "group_country_usa",
+      "label": "USA",
+      "type": "group",
+      "level": 2,
+      "parentId": "group_region_north_america"
+    },
+    {
+      "id": "group_global",
+      "label": "Pharma Network",
+      "type": "group",
+      "level": 0
+    },
+    {
+      "id": "group_region_asia",
+      "label": "Asia",
+      "type": "group",
+      "level": 1,
+      "parentId": "group_global"
+    },
+    {
+      "id": "group_region_europe",
+      "label": "Europe",
+      "type": "group",
+      "level": 1,
+      "parentId": "group_global"
+    },
+    {
+      "id": "group_region_latin_america",
+      "label": "Latin America",
+      "type": "group",
+      "level": 1,
+      "parentId": "group_global"
+    },
+    {
+      "id": "group_region_middle_east_and_africa",
+      "label": "Middle East & Africa",
+      "type": "group",
+      "level": 1,
+      "parentId": "group_global"
+    },
+    {
+      "id": "group_region_north_america",
+      "label": "North America",
+      "type": "group",
+      "level": 1,
+      "parentId": "group_global"
+    }
+  ],
+  "products": [
+    {
+      "productId": "prod_001",
+      "name": "Cardiovex 10mg Tablet",
+      "category": "Cardiovascular",
+      "temperatureRequirement": "Ambient",
+      "controlledSubstance": false,
+      "shelfLifeMonths": 24,
+      "unitCostUsd": 614.76,
+      "criticality": "Medium"
+    },
+    {
+      "productId": "prod_002",
+      "name": "Glucorin 500mg Tablet",
+      "category": "Metabolic",
+      "temperatureRequirement": "Ambient",
+      "controlledSubstance": false,
+      "shelfLifeMonths": 18,
+      "unitCostUsd": 782.11,
+      "criticality": "Medium"
+    },
+    {
+      "productId": "prod_003",
+      "name": "Painova 250mg Capsule",
+      "category": "Analgesic",
+      "temperatureRequirement": "Ambient",
+      "controlledSubstance": false,
+      "shelfLifeMonths": 36,
+      "unitCostUsd": 731.32,
+      "criticality": "High"
+    },
+    {
+      "productId": "prod_004",
+      "name": "Infimab 100mg Vial",
+      "category": "Biologic",
+      "temperatureRequirement": "Cold",
+      "controlledSubstance": true,
+      "shelfLifeMonths": 12,
+      "unitCostUsd": 121.16,
+      "criticality": "High"
+    },
+    {
+      "productId": "prod_005",
+      "name": "Respimune Syrup",
+      "category": "Respiratory",
+      "temperatureRequirement": "Cool",
+      "controlledSubstance": false,
+      "shelfLifeMonths": 36,
+      "unitCostUsd": 300.43,
+      "criticality": "Medium"
+    },
+    {
+      "productId": "prod_006",
+      "name": "Neuroquel 20mg Tablet",
+      "category": "Neurology",
+      "temperatureRequirement": "Ambient",
+      "controlledSubstance": true,
+      "shelfLifeMonths": 18,
+      "unitCostUsd": 212.5,
+      "criticality": "Medium"
+    },
+    {
+      "productId": "prod_007",
+      "name": "Oncora Injectable",
+      "category": "Oncology",
+      "temperatureRequirement": "Cold",
+      "controlledSubstance": true,
+      "shelfLifeMonths": 18,
+      "unitCostUsd": 471.5,
+      "criticality": "Medium"
+    },
+    {
+      "productId": "prod_008",
+      "name": "Dermasol Cream",
+      "category": "Dermatology",
+      "temperatureRequirement": "Ambient",
+      "controlledSubstance": false,
+      "shelfLifeMonths": 24,
+      "unitCostUsd": 662.68,
+      "criticality": "Medium"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "node_0cd8abb7",
+      "label": "Dublin Pharma Plant 3",
+      "type": "manufacturer",
+      "groupId": "group_country_ireland",
+      "region": "Europe",
+      "country": "Ireland",
+      "city": "Dublin",
+      "properties": {
+        "products": [
+          "prod_008",
+          "prod_006"
+        ],
+        "doseForms": [
+          "Cream",
+          "Capsule"
+        ],
+        "gmpCertified": true,
+        "sterileLine": true,
+        "coldChainHandling": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 29,
+        "batchReleaseCycleDays": 8,
+        "capacityBatchesPerMonth": 99,
+        "utilizationPct": 51,
+        "overallEquipmentEffectiveness": 92,
+        "inventoryDays": 6,
+        "criticality": "Low",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_0d6e0d92",
+      "label": "CHI API Supplier 6",
+      "type": "api_supplier",
+      "groupId": "group_country_china",
+      "region": "Asia",
+      "country": "China",
+      "city": "Wuhan",
+      "properties": {
+        "materials": [
+          "Amoxicure",
+          "Ibuprex",
+          "Azithrex",
+          "Levocet"
+        ],
+        "gmpCertified": false,
+        "complianceStatus": "Compliant",
+        "riskScore": 38,
+        "capacityTonsPerMonth": 87,
+        "utilizationPct": 53,
+        "leadTimeDays": 25,
+        "qualityGrade": "B+",
+        "singleSourceSharePct": 38,
+        "costIndex": 127,
+        "temperatureCapability": "Cold",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_19380bbe",
+      "label": "USA API Supplier 9",
+      "type": "api_supplier",
+      "groupId": "group_country_usa",
+      "region": "North America",
+      "country": "USA",
+      "city": "San Diego",
+      "properties": {
+        "materials": [
+          "Ibuprex",
+          "Omepraxa"
+        ],
+        "gmpCertified": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 45,
+        "capacityTonsPerMonth": 59,
+        "utilizationPct": 68,
+        "leadTimeDays": 58,
+        "qualityGrade": "A",
+        "singleSourceSharePct": 5,
+        "costIndex": 118,
+        "temperatureCapability": "Cool",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_19b4fe37",
+      "label": "MEX API Supplier 5",
+      "type": "api_supplier",
+      "groupId": "group_country_mexico",
+      "region": "North America",
+      "country": "Mexico",
+      "city": "Monterrey",
+      "properties": {
+        "materials": [
+          "Metfora",
+          "Azithrex",
+          "Levocet"
+        ],
+        "gmpCertified": true,
+        "complianceStatus": "Conditional",
+        "riskScore": 48,
+        "capacityTonsPerMonth": 195,
+        "utilizationPct": 65,
+        "leadTimeDays": 59,
+        "qualityGrade": "B+",
+        "singleSourceSharePct": 34,
+        "costIndex": 82,
+        "temperatureCapability": "Cool",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_380b4e90",
+      "label": "MEX API Supplier 13",
+      "type": "api_supplier",
+      "groupId": "group_country_mexico",
+      "region": "North America",
+      "country": "Mexico",
+      "city": "Mexico City",
+      "properties": {
+        "materials": [
+          "Azithrex",
+          "Levocet",
+          "Amoxicure"
+        ],
+        "gmpCertified": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 65,
+        "capacityTonsPerMonth": 128,
+        "utilizationPct": 71,
+        "leadTimeDays": 39,
+        "qualityGrade": "B",
+        "singleSourceSharePct": 11,
+        "costIndex": 123,
+        "temperatureCapability": "Cold",
+        "disruptionStatus": "Regulatory Hold"
+      }
+    },
+    {
+      "id": "node_44c4a701",
+      "label": "Ghent Pharma Plant 7",
+      "type": "manufacturer",
+      "groupId": "group_country_belgium",
+      "region": "Europe",
+      "country": "Belgium",
+      "city": "Ghent",
+      "properties": {
+        "products": [
+          "prod_008",
+          "prod_005",
+          "prod_002"
+        ],
+        "doseForms": [
+          "Injectable",
+          "Vial",
+          "Cream",
+          "Tablet"
+        ],
+        "gmpCertified": true,
+        "sterileLine": true,
+        "coldChainHandling": false,
+        "complianceStatus": "Compliant",
+        "riskScore": 89,
+        "batchReleaseCycleDays": 14,
+        "capacityBatchesPerMonth": 141,
+        "utilizationPct": 80,
+        "overallEquipmentEffectiveness": 88,
+        "inventoryDays": 27,
+        "criticality": "Medium",
+        "disruptionStatus": "Minor Delay"
+      }
+    },
+    {
+      "id": "node_4abf15ac",
+      "label": "ITA API Supplier 3",
+      "type": "api_supplier",
+      "groupId": "group_country_italy",
+      "region": "Europe",
+      "country": "Italy",
+      "city": "Parma",
+      "properties": {
+        "materials": [
+          "Paracetemol-X",
+          "Azithrex",
+          "Amlodion",
+          "Atorvalex"
+        ],
+        "gmpCertified": false,
+        "complianceStatus": "Compliant",
+        "riskScore": 57,
+        "capacityTonsPerMonth": 232,
+        "utilizationPct": 85,
+        "leadTimeDays": 49,
+        "qualityGrade": "B",
+        "singleSourceSharePct": 51,
+        "costIndex": 116,
+        "temperatureCapability": "Ambient",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_50392fbf",
+      "label": "Medellin Distribution Center 10",
+      "type": "warehouse",
+      "groupId": "group_country_colombia",
+      "region": "Latin America",
+      "country": "Colombia",
+      "city": "Medellin",
+      "properties": {
+        "coldStorage": true,
+        "controlledSubstanceLicense": false,
+        "complianceStatus": "Under Review",
+        "riskScore": 19,
+        "capacityPallets": 17230,
+        "utilizationPct": 34,
+        "inventoryDays": 15,
+        "serviceLevelPct": 96,
+        "throughputOrdersPerDay": 2467,
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_511d7ace",
+      "label": "Montreal Pharma Plant 2",
+      "type": "manufacturer",
+      "groupId": "group_country_canada",
+      "region": "North America",
+      "country": "Canada",
+      "city": "Montreal",
+      "properties": {
+        "products": [
+          "prod_008",
+          "prod_003"
+        ],
+        "doseForms": [
+          "Injectable",
+          "Syrup",
+          "Vial"
+        ],
+        "gmpCertified": true,
+        "sterileLine": true,
+        "coldChainHandling": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 59,
+        "batchReleaseCycleDays": 10,
+        "capacityBatchesPerMonth": 37,
+        "utilizationPct": 94,
+        "overallEquipmentEffectiveness": 57,
+        "inventoryDays": 6,
+        "criticality": "Low",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_6c36319f",
+      "label": "Seoul Hospital 2",
+      "type": "customer",
+      "groupId": "group_country_south_korea",
+      "region": "Asia",
+      "country": "South Korea",
+      "city": "Seoul",
+      "properties": {
+        "customerType": "Hospital",
+        "demandProfile": "Tender-Based",
+        "priority": "Low",
+        "coldChainNeeded": true,
+        "controlledSubstanceAuthorized": false,
+        "serviceLevelTargetPct": 96,
+        "avgMonthlyDemandUnits": 30439
+      }
+    },
+    {
+      "id": "node_6cc59c77",
+      "label": "CAN API Supplier 7",
+      "type": "api_supplier",
+      "groupId": "group_country_canada",
+      "region": "North America",
+      "country": "Canada",
+      "city": "Montreal",
+      "properties": {
+        "materials": [
+          "Metfora",
+          "Amlodion",
+          "Azithrex"
+        ],
+        "gmpCertified": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 34,
+        "capacityTonsPerMonth": 59,
+        "utilizationPct": 85,
+        "leadTimeDays": 20,
+        "qualityGrade": "B+",
+        "singleSourceSharePct": 59,
+        "costIndex": 118,
+        "temperatureCapability": "Ambient",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_7d293226",
+      "label": "CAN API Supplier 8",
+      "type": "api_supplier",
+      "groupId": "group_country_canada",
+      "region": "North America",
+      "country": "Canada",
+      "city": "Vancouver",
+      "properties": {
+        "materials": [
+          "Amlodion",
+          "Paracetemol-X",
+          "Atorvalex",
+          "Doxacline"
+        ],
+        "gmpCertified": true,
+        "complianceStatus": "Under Review",
+        "riskScore": 63,
+        "capacityTonsPerMonth": 48,
+        "utilizationPct": 63,
+        "leadTimeDays": 37,
+        "qualityGrade": "A",
+        "singleSourceSharePct": 5,
+        "costIndex": 126,
+        "temperatureCapability": "Cold",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_828d7baa",
+      "label": "IND API Supplier 14",
+      "type": "api_supplier",
+      "groupId": "group_country_india",
+      "region": "Asia",
+      "country": "India",
+      "city": "Bengaluru",
+      "properties": {
+        "materials": [
+          "Atorvalex",
+          "Amoxicure",
+          "Ibuprex",
+          "Cetriquel"
+        ],
+        "gmpCertified": true,
+        "complianceStatus": "Warning Letter",
+        "riskScore": 92,
+        "capacityTonsPerMonth": 91,
+        "utilizationPct": 74,
+        "leadTimeDays": 25,
+        "qualityGrade": "B",
+        "singleSourceSharePct": 14,
+        "costIndex": 108,
+        "temperatureCapability": "Cold",
+        "disruptionStatus": "Regulatory Hold"
+      }
+    },
+    {
+      "id": "node_83534483",
+      "label": "SIN API Supplier 10",
+      "type": "api_supplier",
+      "groupId": "group_country_singapore",
+      "region": "Asia",
+      "country": "Singapore",
+      "city": "Singapore",
+      "properties": {
+        "materials": [
+          "Paracetemol-X",
+          "Amoxicure",
+          "Cetriquel"
+        ],
+        "gmpCertified": false,
+        "complianceStatus": "Compliant",
+        "riskScore": 82,
+        "capacityTonsPerMonth": 228,
+        "utilizationPct": 49,
+        "leadTimeDays": 58,
+        "qualityGrade": "A-",
+        "singleSourceSharePct": 21,
+        "costIndex": 88,
+        "temperatureCapability": "Cold",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_8749e68f",
+      "label": "USA API Supplier 2",
+      "type": "api_supplier",
+      "groupId": "group_country_usa",
+      "region": "North America",
+      "country": "USA",
+      "city": "Chicago",
+      "properties": {
+        "materials": [
+          "Amoxicure",
+          "Azithrex",
+          "Cetriquel",
+          "Omepraxa",
+          "Paracetemol-X"
+        ],
+        "gmpCertified": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 74,
+        "capacityTonsPerMonth": 107,
+        "utilizationPct": 62,
+        "leadTimeDays": 19,
+        "qualityGrade": "A",
+        "singleSourceSharePct": 48,
+        "costIndex": 86,
+        "temperatureCapability": "Ambient",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_87f7cff2",
+      "label": "Barcelona Pharma Plant 5",
+      "type": "manufacturer",
+      "groupId": "group_country_spain",
+      "region": "Europe",
+      "country": "Spain",
+      "city": "Barcelona",
+      "properties": {
+        "products": [
+          "prod_007",
+          "prod_003"
+        ],
+        "doseForms": [
+          "Injectable",
+          "Capsule",
+          "Vial",
+          "Tablet"
+        ],
+        "gmpCertified": true,
+        "sterileLine": false,
+        "coldChainHandling": true,
+        "complianceStatus": "Under Review",
+        "riskScore": 100,
+        "batchReleaseCycleDays": 18,
+        "capacityBatchesPerMonth": 139,
+        "utilizationPct": 98,
+        "overallEquipmentEffectiveness": 92,
+        "inventoryDays": 22,
+        "criticality": "High",
+        "disruptionStatus": "Maintenance Shutdown"
+      }
+    },
+    {
+      "id": "node_88271678",
+      "label": "Milan Retail Pharmacy 5",
+      "type": "customer",
+      "groupId": "group_country_italy",
+      "region": "Europe",
+      "country": "Italy",
+      "city": "Milan",
+      "properties": {
+        "customerType": "Retail Pharmacy",
+        "demandProfile": "Seasonal",
+        "priority": "Medium",
+        "coldChainNeeded": false,
+        "controlledSubstanceAuthorized": false,
+        "serviceLevelTargetPct": 94,
+        "avgMonthlyDemandUnits": 41672
+      }
+    },
+    {
+      "id": "node_889b613b",
+      "label": "Toronto Distribution Center 14",
+      "type": "warehouse",
+      "groupId": "group_country_canada",
+      "region": "North America",
+      "country": "Canada",
+      "city": "Toronto",
+      "properties": {
+        "coldStorage": true,
+        "controlledSubstanceLicense": false,
+        "complianceStatus": "Compliant",
+        "riskScore": 43,
+        "capacityPallets": 14502,
+        "utilizationPct": 53,
+        "inventoryDays": 17,
+        "serviceLevelPct": 90,
+        "throughputOrdersPerDay": 373,
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_89929ec4",
+      "label": "Madrid QA Lab 4",
+      "type": "qa_lab",
+      "groupId": "group_country_spain",
+      "region": "Europe",
+      "country": "Spain",
+      "city": "Madrid",
+      "properties": {
+        "accredited": true,
+        "microbiology": false,
+        "stabilityTesting": false,
+        "methodValidation": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 15,
+        "utilizationPct": 85,
+        "turnaroundDays": 6,
+        "qualityGrade": "A-"
+      }
+    },
+    {
+      "id": "node_8dbc4f74",
+      "label": "Memphis Distribution Center 6",
+      "type": "warehouse",
+      "groupId": "group_country_usa",
+      "region": "North America",
+      "country": "USA",
+      "city": "Memphis",
+      "properties": {
+        "coldStorage": false,
+        "controlledSubstanceLicense": false,
+        "complianceStatus": "Compliant",
+        "riskScore": 63,
+        "capacityPallets": 6045,
+        "utilizationPct": 93,
+        "inventoryDays": 52,
+        "serviceLevelPct": 92,
+        "throughputOrdersPerDay": 2134,
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_96d3ea17",
+      "label": "Montreal Pharma Plant 1",
+      "type": "manufacturer",
+      "groupId": "group_country_canada",
+      "region": "North America",
+      "country": "Canada",
+      "city": "Montreal",
+      "properties": {
+        "products": [
+          "prod_007",
+          "prod_003"
+        ],
+        "doseForms": [
+          "Vial",
+          "Injectable",
+          "Capsule",
+          "Cream"
+        ],
+        "gmpCertified": true,
+        "sterileLine": false,
+        "coldChainHandling": true,
+        "complianceStatus": "Conditional",
+        "riskScore": 90,
+        "batchReleaseCycleDays": 21,
+        "capacityBatchesPerMonth": 26,
+        "utilizationPct": 50,
+        "overallEquipmentEffectiveness": 82,
+        "inventoryDays": 13,
+        "criticality": "Low",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_9a7bfd1e",
+      "label": "Vancouver Pharma Plant 8",
+      "type": "manufacturer",
+      "groupId": "group_country_canada",
+      "region": "North America",
+      "country": "Canada",
+      "city": "Vancouver",
+      "properties": {
+        "products": [
+          "prod_005",
+          "prod_003",
+          "prod_007"
+        ],
+        "doseForms": [
+          "Tablet",
+          "Capsule"
+        ],
+        "gmpCertified": true,
+        "sterileLine": false,
+        "coldChainHandling": false,
+        "complianceStatus": "Compliant",
+        "riskScore": 39,
+        "batchReleaseCycleDays": 9,
+        "capacityBatchesPerMonth": 143,
+        "utilizationPct": 62,
+        "overallEquipmentEffectiveness": 92,
+        "inventoryDays": 38,
+        "criticality": "Medium",
+        "disruptionStatus": "Labor Shortage"
+      }
+    },
+    {
+      "id": "node_a33165e7",
+      "label": "Bogota Distribution Center 12",
+      "type": "warehouse",
+      "groupId": "group_country_colombia",
+      "region": "Latin America",
+      "country": "Colombia",
+      "city": "Bogota",
+      "properties": {
+        "coldStorage": false,
+        "controlledSubstanceLicense": false,
+        "complianceStatus": "Under Review",
+        "riskScore": 34,
+        "capacityPallets": 11376,
+        "utilizationPct": 92,
+        "inventoryDays": 41,
+        "serviceLevelPct": 88,
+        "throughputOrdersPerDay": 330,
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_c8b05c44",
+      "label": "Seoul Distribution Center 1",
+      "type": "warehouse",
+      "groupId": "group_country_south_korea",
+      "region": "Asia",
+      "country": "South Korea",
+      "city": "Seoul",
+      "properties": {
+        "coldStorage": false,
+        "controlledSubstanceLicense": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 38,
+        "capacityPallets": 10114,
+        "utilizationPct": 53,
+        "inventoryDays": 44,
+        "serviceLevelPct": 94,
+        "throughputOrdersPerDay": 2064,
+        "disruptionStatus": "IT Outage"
+      }
+    },
+    {
+      "id": "node_cb65c1ac",
+      "label": "Guadalajara Hospital 6",
+      "type": "customer",
+      "groupId": "group_country_mexico",
+      "region": "North America",
+      "country": "Mexico",
+      "city": "Guadalajara",
+      "properties": {
+        "customerType": "Hospital",
+        "demandProfile": "Volatile",
+        "priority": "High",
+        "coldChainNeeded": false,
+        "controlledSubstanceAuthorized": true,
+        "serviceLevelTargetPct": 96,
+        "avgMonthlyDemandUnits": 21911
+      }
+    },
+    {
+      "id": "node_cc483156",
+      "label": "Zurich Pharma Plant 10",
+      "type": "manufacturer",
+      "groupId": "group_country_switzerland",
+      "region": "Europe",
+      "country": "Switzerland",
+      "city": "Zurich",
+      "properties": {
+        "products": [
+          "prod_002",
+          "prod_004"
+        ],
+        "doseForms": [
+          "Tablet",
+          "Cream",
+          "Vial"
+        ],
+        "gmpCertified": true,
+        "sterileLine": false,
+        "coldChainHandling": false,
+        "complianceStatus": "Compliant",
+        "riskScore": 46,
+        "batchReleaseCycleDays": 6,
+        "capacityBatchesPerMonth": 162,
+        "utilizationPct": 93,
+        "overallEquipmentEffectiveness": 81,
+        "inventoryDays": 43,
+        "criticality": "Medium",
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_dd1ed363",
+      "label": "Alexandria Distribution Center 9",
+      "type": "warehouse",
+      "groupId": "group_country_egypt",
+      "region": "Middle East & Africa",
+      "country": "Egypt",
+      "city": "Alexandria",
+      "properties": {
+        "coldStorage": true,
+        "controlledSubstanceLicense": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 54,
+        "capacityPallets": 8825,
+        "utilizationPct": 79,
+        "inventoryDays": 21,
+        "serviceLevelPct": 94,
+        "throughputOrdersPerDay": 228,
+        "disruptionStatus": "None"
+      }
+    },
+    {
+      "id": "node_dd4da2f7",
+      "label": "Zurich Pharma Plant 6",
+      "type": "manufacturer",
+      "groupId": "group_country_switzerland",
+      "region": "Europe",
+      "country": "Switzerland",
+      "city": "Zurich",
+      "properties": {
+        "products": [
+          "prod_008",
+          "prod_005"
+        ],
+        "doseForms": [
+          "Vial",
+          "Injectable",
+          "Syrup",
+          "Tablet"
+        ],
+        "gmpCertified": true,
+        "sterileLine": true,
+        "coldChainHandling": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 48,
+        "batchReleaseCycleDays": 13,
+        "capacityBatchesPerMonth": 91,
+        "utilizationPct": 83,
+        "overallEquipmentEffectiveness": 72,
+        "inventoryDays": 40,
+        "criticality": "High",
+        "disruptionStatus": "Quality Investigation"
+      }
+    },
+    {
+      "id": "node_e94d217d",
+      "label": "Tokyo QA Lab 1",
+      "type": "qa_lab",
+      "groupId": "group_country_japan",
+      "region": "Asia",
+      "country": "Japan",
+      "city": "Tokyo",
+      "properties": {
+        "accredited": true,
+        "microbiology": true,
+        "stabilityTesting": true,
+        "methodValidation": true,
+        "complianceStatus": "Compliant",
+        "riskScore": 8,
+        "utilizationPct": 74,
+        "turnaroundDays": 13,
+        "qualityGrade": "A"
+      }
+    },
+    {
+      "id": "node_f427437a",
+      "label": "Bogota Retail Pharmacy 1",
+      "type": "customer",
+      "groupId": "group_country_colombia",
+      "region": "Latin America",
+      "country": "Colombia",
+      "city": "Bogota",
+      "properties": {
+        "customerType": "Retail Pharmacy",
+        "demandProfile": "Seasonal",
+        "priority": "High",
+        "coldChainNeeded": false,
+        "controlledSubstanceAuthorized": false,
+        "serviceLevelTargetPct": 92,
+        "avgMonthlyDemandUnits": 30990
+      }
+    },
+    {
+      "id": "node_f64e25b0",
+      "label": "Singapore QA Lab 5",
+      "type": "qa_lab",
+      "groupId": "group_country_singapore",
+      "region": "Asia",
+      "country": "Singapore",
+      "city": "Singapore",
+      "properties": {
+        "accredited": true,
+        "microbiology": false,
+        "stabilityTesting": true,
+        "methodValidation": false,
+        "complianceStatus": "Compliant",
+        "riskScore": 36,
+        "utilizationPct": 63,
+        "turnaroundDays": 3,
+        "qualityGrade": "A-"
+      }
+    },
+    {
+      "id": "node_fa1cc584",
+      "label": "Cordoba Distribution Center 2",
+      "type": "warehouse",
+      "groupId": "group_country_argentina",
+      "region": "Latin America",
+      "country": "Argentina",
+      "city": "Cordoba",
+      "properties": {
+        "coldStorage": true,
+        "controlledSubstanceLicense": false,
+        "complianceStatus": "Under Review",
+        "riskScore": 31,
+        "capacityPallets": 14488,
+        "utilizationPct": 93,
+        "inventoryDays": 25,
+        "serviceLevelPct": 98,
+        "throughputOrdersPerDay": 1690,
+        "disruptionStatus": "Minor Delay"
+      }
+    },
+    {
+      "id": "node_fdfdef4a",
+      "label": "Cairo Retail Pharmacy 19",
+      "type": "customer",
+      "groupId": "group_country_egypt",
+      "region": "Middle East & Africa",
+      "country": "Egypt",
+      "city": "Cairo",
+      "properties": {
+        "customerType": "Retail Pharmacy",
+        "demandProfile": "Volatile",
+        "priority": "Medium",
+        "coldChainNeeded": false,
+        "controlledSubstanceAuthorized": false,
+        "serviceLevelTargetPct": 96,
+        "avgMonthlyDemandUnits": 91554
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge_14151f04",
+      "source": "node_0d6e0d92",
+      "target": "node_96d3ea17",
+      "type": "supplies_api",
+      "label": "Levocet",
+      "properties": {
+        "material": "Levocet",
+        "volumeTonsPerMonth": 16.81,
+        "leadTimeDays": 33,
+        "transportMode": "Sea",
+        "laneRisk": 23,
+        "reliabilityPct": 85,
+        "coldChain": false,
+        "incoterm": "EXW",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_205d268e",
+      "source": "node_4abf15ac",
+      "target": "node_96d3ea17",
+      "type": "supplies_api",
+      "label": "Atorvalex",
+      "properties": {
+        "material": "Atorvalex",
+        "volumeTonsPerMonth": 17.54,
+        "leadTimeDays": 31,
+        "transportMode": "Sea",
+        "laneRisk": 31,
+        "reliabilityPct": 80,
+        "coldChain": false,
+        "incoterm": "FOB",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_fcb8efdd",
+      "source": "node_f64e25b0",
+      "target": "node_96d3ea17",
+      "type": "tests_batches",
+      "label": "QA Release",
+      "properties": {
+        "testTypes": [
+          "Stability",
+          "Assay"
+        ],
+        "turnaroundDays": 7,
+        "releaseCritical": false
+      }
+    },
+    {
+      "id": "edge_0083b044",
+      "source": "node_7d293226",
+      "target": "node_511d7ace",
+      "type": "supplies_api",
+      "label": "Paracetemol-X",
+      "properties": {
+        "material": "Paracetemol-X",
+        "volumeTonsPerMonth": 7.91,
+        "leadTimeDays": 28,
+        "transportMode": "Sea",
+        "laneRisk": 53,
+        "reliabilityPct": 99,
+        "coldChain": false,
+        "incoterm": "DAP",
+        "soleSource": true
+      }
+    },
+    {
+      "id": "edge_f8dc843a",
+      "source": "node_19380bbe",
+      "target": "node_511d7ace",
+      "type": "supplies_api",
+      "label": "Ibuprex",
+      "properties": {
+        "material": "Ibuprex",
+        "volumeTonsPerMonth": 11.6,
+        "leadTimeDays": 34,
+        "transportMode": "Sea",
+        "laneRisk": 87,
+        "reliabilityPct": 82,
+        "coldChain": false,
+        "incoterm": "CIF",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_3dff5b9b",
+      "source": "node_380b4e90",
+      "target": "node_511d7ace",
+      "type": "supplies_api",
+      "label": "Levocet",
+      "properties": {
+        "material": "Levocet",
+        "volumeTonsPerMonth": 19.39,
+        "leadTimeDays": 35,
+        "transportMode": "Sea",
+        "laneRisk": 20,
+        "reliabilityPct": 87,
+        "coldChain": false,
+        "incoterm": "DAP",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_79c89b6e",
+      "source": "node_380b4e90",
+      "target": "node_0cd8abb7",
+      "type": "supplies_api",
+      "label": "Amoxicure",
+      "properties": {
+        "material": "Amoxicure",
+        "volumeTonsPerMonth": 11.02,
+        "leadTimeDays": 20,
+        "transportMode": "Road",
+        "laneRisk": 87,
+        "reliabilityPct": 82,
+        "coldChain": false,
+        "incoterm": "FOB",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_8783c059",
+      "source": "node_19b4fe37",
+      "target": "node_0cd8abb7",
+      "type": "supplies_api",
+      "label": "Azithrex",
+      "properties": {
+        "material": "Azithrex",
+        "volumeTonsPerMonth": 11.54,
+        "leadTimeDays": 16,
+        "transportMode": "Road",
+        "laneRisk": 76,
+        "reliabilityPct": 81,
+        "coldChain": false,
+        "incoterm": "CIF",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_2d0122eb",
+      "source": "node_6cc59c77",
+      "target": "node_0cd8abb7",
+      "type": "supplies_api",
+      "label": "Azithrex",
+      "properties": {
+        "material": "Azithrex",
+        "volumeTonsPerMonth": 3.8,
+        "leadTimeDays": 37,
+        "transportMode": "Sea",
+        "laneRisk": 38,
+        "reliabilityPct": 92,
+        "coldChain": false,
+        "incoterm": "FOB",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_e2b2c8ab",
+      "source": "node_83534483",
+      "target": "node_87f7cff2",
+      "type": "supplies_api",
+      "label": "Cetriquel",
+      "properties": {
+        "material": "Cetriquel",
+        "volumeTonsPerMonth": 18.41,
+        "leadTimeDays": 41,
+        "transportMode": "Sea",
+        "laneRisk": 27,
+        "reliabilityPct": 80,
+        "coldChain": false,
+        "incoterm": "EXW",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_8b8ac241",
+      "source": "node_19b4fe37",
+      "target": "node_87f7cff2",
+      "type": "supplies_api",
+      "label": "Levocet",
+      "properties": {
+        "material": "Levocet",
+        "volumeTonsPerMonth": 19.38,
+        "leadTimeDays": 30,
+        "transportMode": "Road",
+        "laneRisk": 18,
+        "reliabilityPct": 95,
+        "coldChain": false,
+        "incoterm": "DAP",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_c945977c",
+      "source": "node_19b4fe37",
+      "target": "node_dd4da2f7",
+      "type": "supplies_api",
+      "label": "Levocet",
+      "properties": {
+        "material": "Levocet",
+        "volumeTonsPerMonth": 19.17,
+        "leadTimeDays": 27,
+        "transportMode": "Sea",
+        "laneRisk": 48,
+        "reliabilityPct": 97,
+        "coldChain": false,
+        "incoterm": "CIF",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_cd8adabf",
+      "source": "node_8749e68f",
+      "target": "node_dd4da2f7",
+      "type": "supplies_api",
+      "label": "Paracetemol-X",
+      "properties": {
+        "material": "Paracetemol-X",
+        "volumeTonsPerMonth": 3.93,
+        "leadTimeDays": 49,
+        "transportMode": "Road",
+        "laneRisk": 87,
+        "reliabilityPct": 88,
+        "coldChain": false,
+        "incoterm": "FOB",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_69a831f7",
+      "source": "node_828d7baa",
+      "target": "node_dd4da2f7",
+      "type": "supplies_api",
+      "label": "Atorvalex",
+      "properties": {
+        "material": "Atorvalex",
+        "volumeTonsPerMonth": 2.54,
+        "leadTimeDays": 46,
+        "transportMode": "Sea",
+        "laneRisk": 56,
+        "reliabilityPct": 81,
+        "coldChain": false,
+        "incoterm": "FOB",
+        "soleSource": true
+      }
+    },
+    {
+      "id": "edge_d9e671d9",
+      "source": "node_f64e25b0",
+      "target": "node_dd4da2f7",
+      "type": "tests_batches",
+      "label": "QA Release",
+      "properties": {
+        "testTypes": [
+          "Stability",
+          "Impurities"
+        ],
+        "turnaroundDays": 6,
+        "releaseCritical": false
+      }
+    },
+    {
+      "id": "edge_f3b0c08c",
+      "source": "node_e94d217d",
+      "target": "node_dd4da2f7",
+      "type": "tests_batches",
+      "label": "QA Release",
+      "properties": {
+        "testTypes": [
+          "Microbiology",
+          "Assay",
+          "Impurities"
+        ],
+        "turnaroundDays": 2,
+        "releaseCritical": true
+      }
+    },
+    {
+      "id": "edge_18753d57",
+      "source": "node_0d6e0d92",
+      "target": "node_44c4a701",
+      "type": "supplies_api",
+      "label": "Azithrex",
+      "properties": {
+        "material": "Azithrex",
+        "volumeTonsPerMonth": 2.4,
+        "leadTimeDays": 42,
+        "transportMode": "Air",
+        "laneRisk": 80,
+        "reliabilityPct": 86,
+        "coldChain": false,
+        "incoterm": "FOB",
+        "soleSource": true
+      }
+    },
+    {
+      "id": "edge_0d555f89",
+      "source": "node_19380bbe",
+      "target": "node_44c4a701",
+      "type": "supplies_api",
+      "label": "Ibuprex",
+      "properties": {
+        "material": "Ibuprex",
+        "volumeTonsPerMonth": 8.48,
+        "leadTimeDays": 31,
+        "transportMode": "Road",
+        "laneRisk": 56,
+        "reliabilityPct": 82,
+        "coldChain": false,
+        "incoterm": "EXW",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_9ccc3cd2",
+      "source": "node_6cc59c77",
+      "target": "node_9a7bfd1e",
+      "type": "supplies_api",
+      "label": "Azithrex",
+      "properties": {
+        "material": "Azithrex",
+        "volumeTonsPerMonth": 4.87,
+        "leadTimeDays": 42,
+        "transportMode": "Road",
+        "laneRisk": 70,
+        "reliabilityPct": 79,
+        "coldChain": false,
+        "incoterm": "CIF",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_486183b4",
+      "source": "node_4abf15ac",
+      "target": "node_9a7bfd1e",
+      "type": "supplies_api",
+      "label": "Atorvalex",
+      "properties": {
+        "material": "Atorvalex",
+        "volumeTonsPerMonth": 10.98,
+        "leadTimeDays": 30,
+        "transportMode": "Rail",
+        "laneRisk": 68,
+        "reliabilityPct": 95,
+        "coldChain": false,
+        "incoterm": "DAP",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_398e430e",
+      "source": "node_828d7baa",
+      "target": "node_9a7bfd1e",
+      "type": "supplies_api",
+      "label": "Ibuprex",
+      "properties": {
+        "material": "Ibuprex",
+        "volumeTonsPerMonth": 12.59,
+        "leadTimeDays": 22,
+        "transportMode": "Rail",
+        "laneRisk": 65,
+        "reliabilityPct": 80,
+        "coldChain": false,
+        "incoterm": "DAP",
+        "soleSource": true
+      }
+    },
+    {
+      "id": "edge_49abf298",
+      "source": "node_e94d217d",
+      "target": "node_9a7bfd1e",
+      "type": "tests_batches",
+      "label": "QA Release",
+      "properties": {
+        "testTypes": [
+          "Stability",
+          "Microbiology"
+        ],
+        "turnaroundDays": 9,
+        "releaseCritical": true
+      }
+    },
+    {
+      "id": "edge_b06957d8",
+      "source": "node_4abf15ac",
+      "target": "node_cc483156",
+      "type": "supplies_api",
+      "label": "Atorvalex",
+      "properties": {
+        "material": "Atorvalex",
+        "volumeTonsPerMonth": 7.15,
+        "leadTimeDays": 25,
+        "transportMode": "Sea",
+        "laneRisk": 59,
+        "reliabilityPct": 85,
+        "coldChain": false,
+        "incoterm": "DAP",
+        "soleSource": false
+      }
+    },
+    {
+      "id": "edge_1528ea2b",
+      "source": "node_828d7baa",
+      "target": "node_cc483156",
+      "type": "supplies_api",
+      "label": "Ibuprex",
+      "properties": {
+        "material": "Ibuprex",
+        "volumeTonsPerMonth": 12.07,
+        "leadTimeDays": 46,
+        "transportMode": "Sea",
+        "laneRisk": 76,
+        "reliabilityPct": 70,
+        "coldChain": true,
+        "incoterm": "FOB",
+        "soleSource": true
+      }
+    },
+    {
+      "id": "edge_ce552dfb",
+      "source": "node_f64e25b0",
+      "target": "node_19380bbe",
+      "type": "audits_supplier",
+      "label": "Supplier Audit",
+      "properties": {
+        "auditFrequencyMonths": 6,
+        "lastAuditScore": 72,
+        "openObservations": 7
+      }
+    },
+    {
+      "id": "edge_15ae8db7",
+      "source": "node_e94d217d",
+      "target": "node_8749e68f",
+      "type": "audits_supplier",
+      "label": "Supplier Audit",
+      "properties": {
+        "auditFrequencyMonths": 24,
+        "lastAuditScore": 76,
+        "openObservations": 5
+      }
+    },
+    {
+      "id": "edge_8be3108d",
+      "source": "node_89929ec4",
+      "target": "node_83534483",
+      "type": "audits_supplier",
+      "label": "Supplier Audit",
+      "properties": {
+        "auditFrequencyMonths": 24,
+        "lastAuditScore": 92,
+        "openObservations": 3
+      }
+    },
+    {
+      "id": "edge_a39a8e9f",
+      "source": "node_96d3ea17",
+      "target": "node_8dbc4f74",
+      "type": "ships_finished_goods",
+      "label": "Painova 250mg Capsule",
+      "properties": {
+        "productId": "prod_003",
+        "productName": "Painova 250mg Capsule",
+        "monthlyUnits": 327396,
+        "leadTimeDays": 2,
+        "transportMode": "Road",
+        "laneRisk": 13,
+        "reliabilityPct": 86,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_0c616255",
+      "source": "node_511d7ace",
+      "target": "node_c8b05c44",
+      "type": "ships_finished_goods",
+      "label": "Dermasol Cream",
+      "properties": {
+        "productId": "prod_008",
+        "productName": "Dermasol Cream",
+        "monthlyUnits": 133311,
+        "leadTimeDays": 3,
+        "transportMode": "Road",
+        "laneRisk": 34,
+        "reliabilityPct": 93,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_ce924415",
+      "source": "node_511d7ace",
+      "target": "node_50392fbf",
+      "type": "ships_finished_goods",
+      "label": "Painova 250mg Capsule",
+      "properties": {
+        "productId": "prod_003",
+        "productName": "Painova 250mg Capsule",
+        "monthlyUnits": 307763,
+        "leadTimeDays": 12,
+        "transportMode": "Road",
+        "laneRisk": 23,
+        "reliabilityPct": 95,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_58f3ccfd",
+      "source": "node_0cd8abb7",
+      "target": "node_dd1ed363",
+      "type": "ships_finished_goods",
+      "label": "Neuroquel 20mg Tablet",
+      "properties": {
+        "productId": "prod_006",
+        "productName": "Neuroquel 20mg Tablet",
+        "monthlyUnits": 219045,
+        "leadTimeDays": 6,
+        "transportMode": "Road",
+        "laneRisk": 28,
+        "reliabilityPct": 97,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": true
+      }
+    },
+    {
+      "id": "edge_06d73273",
+      "source": "node_0cd8abb7",
+      "target": "node_c8b05c44",
+      "type": "ships_finished_goods",
+      "label": "Neuroquel 20mg Tablet",
+      "properties": {
+        "productId": "prod_006",
+        "productName": "Neuroquel 20mg Tablet",
+        "monthlyUnits": 484587,
+        "leadTimeDays": 3,
+        "transportMode": "Air",
+        "laneRisk": 58,
+        "reliabilityPct": 93,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": true
+      }
+    },
+    {
+      "id": "edge_4738bee8",
+      "source": "node_87f7cff2",
+      "target": "node_a33165e7",
+      "type": "ships_finished_goods",
+      "label": "Painova 250mg Capsule",
+      "properties": {
+        "productId": "prod_003",
+        "productName": "Painova 250mg Capsule",
+        "monthlyUnits": 484430,
+        "leadTimeDays": 9,
+        "transportMode": "Sea",
+        "laneRisk": 31,
+        "reliabilityPct": 91,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_9cf52363",
+      "source": "node_87f7cff2",
+      "target": "node_fa1cc584",
+      "type": "ships_finished_goods",
+      "label": "Oncora Injectable",
+      "properties": {
+        "productId": "prod_007",
+        "productName": "Oncora Injectable",
+        "monthlyUnits": 294448,
+        "leadTimeDays": 12,
+        "transportMode": "Courier",
+        "laneRisk": 53,
+        "reliabilityPct": 92,
+        "temperatureRequirement": "Cold",
+        "coldChain": true,
+        "controlledSubstance": true
+      }
+    },
+    {
+      "id": "edge_5232a702",
+      "source": "node_dd4da2f7",
+      "target": "node_8dbc4f74",
+      "type": "ships_finished_goods",
+      "label": "Respimune Syrup",
+      "properties": {
+        "productId": "prod_005",
+        "productName": "Respimune Syrup",
+        "monthlyUnits": 484372,
+        "leadTimeDays": 8,
+        "transportMode": "Road",
+        "laneRisk": 57,
+        "reliabilityPct": 85,
+        "temperatureRequirement": "Cool",
+        "coldChain": true,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_b38bb816",
+      "source": "node_dd4da2f7",
+      "target": "node_a33165e7",
+      "type": "ships_finished_goods",
+      "label": "Respimune Syrup",
+      "properties": {
+        "productId": "prod_005",
+        "productName": "Respimune Syrup",
+        "monthlyUnits": 159765,
+        "leadTimeDays": 6,
+        "transportMode": "Road",
+        "laneRisk": 34,
+        "reliabilityPct": 91,
+        "temperatureRequirement": "Cool",
+        "coldChain": true,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_9ab336cc",
+      "source": "node_44c4a701",
+      "target": "node_889b613b",
+      "type": "ships_finished_goods",
+      "label": "Glucorin 500mg Tablet",
+      "properties": {
+        "productId": "prod_002",
+        "productName": "Glucorin 500mg Tablet",
+        "monthlyUnits": 499647,
+        "leadTimeDays": 12,
+        "transportMode": "Road",
+        "laneRisk": 67,
+        "reliabilityPct": 96,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_9a98aa35",
+      "source": "node_44c4a701",
+      "target": "node_dd1ed363",
+      "type": "ships_finished_goods",
+      "label": "Dermasol Cream",
+      "properties": {
+        "productId": "prod_008",
+        "productName": "Dermasol Cream",
+        "monthlyUnits": 279697,
+        "leadTimeDays": 3,
+        "transportMode": "Courier",
+        "laneRisk": 14,
+        "reliabilityPct": 98,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_64d2f1f8",
+      "source": "node_9a7bfd1e",
+      "target": "node_c8b05c44",
+      "type": "ships_finished_goods",
+      "label": "Respimune Syrup",
+      "properties": {
+        "productId": "prod_005",
+        "productName": "Respimune Syrup",
+        "monthlyUnits": 446736,
+        "leadTimeDays": 9,
+        "transportMode": "Road",
+        "laneRisk": 24,
+        "reliabilityPct": 85,
+        "temperatureRequirement": "Cool",
+        "coldChain": true,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_d5d8c085",
+      "source": "node_9a7bfd1e",
+      "target": "node_889b613b",
+      "type": "ships_finished_goods",
+      "label": "Painova 250mg Capsule",
+      "properties": {
+        "productId": "prod_003",
+        "productName": "Painova 250mg Capsule",
+        "monthlyUnits": 13247,
+        "leadTimeDays": 2,
+        "transportMode": "Air",
+        "laneRisk": 57,
+        "reliabilityPct": 85,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_0d897163",
+      "source": "node_cc483156",
+      "target": "node_c8b05c44",
+      "type": "ships_finished_goods",
+      "label": "Glucorin 500mg Tablet",
+      "properties": {
+        "productId": "prod_002",
+        "productName": "Glucorin 500mg Tablet",
+        "monthlyUnits": 48351,
+        "leadTimeDays": 17,
+        "transportMode": "Courier",
+        "laneRisk": 47,
+        "reliabilityPct": 94,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_2519a8f5",
+      "source": "node_cc483156",
+      "target": "node_fa1cc584",
+      "type": "ships_finished_goods",
+      "label": "Glucorin 500mg Tablet",
+      "properties": {
+        "productId": "prod_002",
+        "productName": "Glucorin 500mg Tablet",
+        "monthlyUnits": 474128,
+        "leadTimeDays": 18,
+        "transportMode": "Rail",
+        "laneRisk": 34,
+        "reliabilityPct": 88,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false
+      }
+    },
+    {
+      "id": "edge_ae53d11b",
+      "source": "node_8dbc4f74",
+      "target": "node_dd1ed363",
+      "type": "rebalances_inventory",
+      "label": "Inventory Rebalance",
+      "properties": {
+        "monthlyTransfers": 34,
+        "leadTimeDays": 6,
+        "transportMode": "Road",
+        "laneRisk": 27,
+        "reliabilityPct": 96
+      }
+    },
+    {
+      "id": "edge_0d960b76",
+      "source": "node_8dbc4f74",
+      "target": "node_f427437a",
+      "type": "fulfills_order",
+      "label": "Glucorin 500mg Tablet",
+      "properties": {
+        "productId": "prod_002",
+        "productName": "Glucorin 500mg Tablet",
+        "monthlyUnits": 6097,
+        "leadTimeDays": 1,
+        "transportMode": "Air",
+        "laneRisk": 29,
+        "serviceLevelPct": 93,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false,
+        "backorderRatePct": 6.09
+      }
+    },
+    {
+      "id": "edge_c226de50",
+      "source": "node_889b613b",
+      "target": "node_f427437a",
+      "type": "fulfills_order",
+      "label": "Glucorin 500mg Tablet",
+      "properties": {
+        "productId": "prod_002",
+        "productName": "Glucorin 500mg Tablet",
+        "monthlyUnits": 8783,
+        "leadTimeDays": 2,
+        "transportMode": "Road",
+        "laneRisk": 29,
+        "serviceLevelPct": 96,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false,
+        "backorderRatePct": 4.44
+      }
+    },
+    {
+      "id": "edge_a5bc5adc",
+      "source": "node_fa1cc584",
+      "target": "node_6c36319f",
+      "type": "fulfills_order",
+      "label": "Glucorin 500mg Tablet",
+      "properties": {
+        "productId": "prod_002",
+        "productName": "Glucorin 500mg Tablet",
+        "monthlyUnits": 23294,
+        "leadTimeDays": 9,
+        "transportMode": "Road",
+        "laneRisk": 39,
+        "serviceLevelPct": 93,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false,
+        "backorderRatePct": 6.91
+      }
+    },
+    {
+      "id": "edge_0ca57a9f",
+      "source": "node_c8b05c44",
+      "target": "node_6c36319f",
+      "type": "fulfills_order",
+      "label": "Cardiovex 10mg Tablet",
+      "properties": {
+        "productId": "prod_001",
+        "productName": "Cardiovex 10mg Tablet",
+        "monthlyUnits": 19226,
+        "leadTimeDays": 7,
+        "transportMode": "Road",
+        "laneRisk": 6,
+        "serviceLevelPct": 99,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false,
+        "backorderRatePct": 7.21
+      }
+    },
+    {
+      "id": "edge_c9968af9",
+      "source": "node_a33165e7",
+      "target": "node_88271678",
+      "type": "fulfills_order",
+      "label": "Dermasol Cream",
+      "properties": {
+        "productId": "prod_008",
+        "productName": "Dermasol Cream",
+        "monthlyUnits": 39015,
+        "leadTimeDays": 10,
+        "transportMode": "Road",
+        "laneRisk": 7,
+        "serviceLevelPct": 90,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false,
+        "backorderRatePct": 2.44
+      }
+    },
+    {
+      "id": "edge_e16d06fd",
+      "source": "node_8dbc4f74",
+      "target": "node_cb65c1ac",
+      "type": "fulfills_order",
+      "label": "Oncora Injectable",
+      "properties": {
+        "productId": "prod_007",
+        "productName": "Oncora Injectable",
+        "monthlyUnits": 21696,
+        "leadTimeDays": 8,
+        "transportMode": "Road",
+        "laneRisk": 42,
+        "serviceLevelPct": 97,
+        "temperatureRequirement": "Cold",
+        "coldChain": true,
+        "controlledSubstance": true,
+        "backorderRatePct": 1.09
+      }
+    },
+    {
+      "id": "edge_e1f4c6c7",
+      "source": "node_50392fbf",
+      "target": "node_cb65c1ac",
+      "type": "fulfills_order",
+      "label": "Neuroquel 20mg Tablet",
+      "properties": {
+        "productId": "prod_006",
+        "productName": "Neuroquel 20mg Tablet",
+        "monthlyUnits": 39632,
+        "leadTimeDays": 12,
+        "transportMode": "Road",
+        "laneRisk": 21,
+        "serviceLevelPct": 90,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": true,
+        "backorderRatePct": 7.72
+      }
+    },
+    {
+      "id": "edge_df28b8ee",
+      "source": "node_dd1ed363",
+      "target": "node_fdfdef4a",
+      "type": "fulfills_order",
+      "label": "Painova 250mg Capsule",
+      "properties": {
+        "productId": "prod_003",
+        "productName": "Painova 250mg Capsule",
+        "monthlyUnits": 32189,
+        "leadTimeDays": 5,
+        "transportMode": "Road",
+        "laneRisk": 21,
+        "serviceLevelPct": 95,
+        "temperatureRequirement": "Ambient",
+        "coldChain": false,
+        "controlledSubstance": false,
+        "backorderRatePct": 4.96
+      }
+    }
+  ]
+}
