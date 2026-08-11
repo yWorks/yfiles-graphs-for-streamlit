@@ -298,7 +298,7 @@ widget = StreamlitGraphWidget(
     edges,
     node_parent_group_mapping=lambda node: node["properties"].get("department", "Unknown"),
 )
-widget.show(graph_layout=Layout.HIERARCHIC)
+widget.show(graph_layout=Layout.HIERARCHICAL)
 ```
 
 **F. Read interactive selection (tuple return)**
@@ -336,7 +336,7 @@ with st.container(height=800):
 ### `Layout`
 - `Layout.CIRCULAR` — Arrange in a single cycle; bundle edge paths.
 - `Layout.CIRCULAR_STRAIGHT_LINE` — Cycle with straight-line edges.
-- `Layout.HIERARCHIC` — Layered, directional flow.
+- `Layout.HIERARCHICAL` — Layered, directional flow.
 - `Layout.ORGANIC` — Force-directed natural layout.
 - `Layout.INTERACTIVE_ORGANIC` — Organic that adapts while interacting.
 - `Layout.ORTHOGONAL` — Grid-like nodes, right-angled edges.
